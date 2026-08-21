@@ -19,8 +19,9 @@ export function img(key: string): ImageMetadata {
   return found;
 }
 
-/** The 14 photographs used on the history page, in their original order. */
-export const galleryKeys = Array.from({ length: 14 }, (_, i) =>
+/** Every photograph on the history page. 14 recovered from the Weblium bucket,
+    then 18 supplied by the client on 2026-08-21. */
+export const galleryKeys = Array.from({ length: 32 }, (_, i) =>
   `academy-${String(i + 1).padStart(2, '0')}`,
 );
 

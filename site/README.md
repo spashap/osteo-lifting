@@ -106,7 +106,8 @@ site/
 ├── public/            favicon, og-image, robots.txt, the five decorative SVG icons
 ├── scripts/           one-off brand-asset generator (output is committed)
 ├── src/
-│   ├── assets/img/    38 photographs recovered from the Weblium bucket
+│   ├── assets/img/    photographs: 38 recovered from the Weblium bucket,
+│   │                  plus 18 supplied by the client 2026-08-21
 │   ├── components/    header, hero, stat bar, instructors, courses, testimonials, FAQ, footer…
 │   ├── data/images.ts image registry (JSON refers to images by key)
 │   ├── i18n/          ru.json · ua.json · en.json + locale helpers
@@ -155,6 +156,8 @@ than absorbing their content, which would have left the spoke pages thin and dup
   before/after results at full width, linking to `/method/`. The results are 9:16 story exports; in a
   half-width column nothing in them is legible, hence the full-width row.
 - **`HomeGallery`** — six photographs from the history page as a dark band, linking to `/history/`.
+  The history gallery itself runs to 32 images; the six here are a curated mix of teaching moments and
+  graduation groups.
   Graduates with certificates and rooms of people practising are the most immediately legible proof
   that this is a real school.
 
@@ -164,6 +167,21 @@ two pages.
 Testimonials longer than 340 characters are clamped to four lines behind a native `<details>`
 disclosure. Every word stays in the DOM, so search engines and the `Review` structured data are
 unaffected. Short ones render plainly rather than asking anyone to expand two sentences.
+
+## Adding photographs
+
+```bash
+node scripts/optimize-photos.mjs <source-dir> <start-index> [order.json]
+```
+
+Writes `src/assets/img/academy-NN.jpg`, skipping duplicates by content hash. It re-encodes **only** when
+that achieves something — an oversized image, embedded metadata (phone cameras bury GPS in EXIF), or a
+rotation to apply. Otherwise the file is copied byte-for-byte: re-compressing an already-compressed JPEG
+just compounds artefacts and hands Astro a worse source. WhatsApp exports arrive already stripped and
+already small, so they pass straight through.
+
+Delivered size is decided by the AVIF/WebP variants Astro builds, not by these masters. After adding
+files, extend `galleryKeys` in `src/data/images.ts` and add an `alt` entry per language.
 
 ## Motion
 

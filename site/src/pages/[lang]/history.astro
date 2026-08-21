@@ -73,7 +73,11 @@ const schema = graph([organization(lang), breadcrumbs(lang, trail)]);
                   src={img(key)}
                   formats={['avif', 'webp']}
                   widths={[320, 560, 900]}
-                  sizes="(min-width: 62em) 30vw, 46vw"
+                  sizes={
+                    i % 5 === 0
+                      ? '(min-width: 62em) 600px, (min-width: 48em) 66vw, 47vw'
+                      : '(min-width: 62em) 300px, (min-width: 48em) 33vw, 47vw'
+                  }
                   alt={t.alt[key as keyof typeof t.alt]}
                   loading="lazy"
                 />
