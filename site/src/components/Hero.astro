@@ -29,6 +29,12 @@ const sculpture = img('hero-sculpture');
     </div>
 
     <figure class="hero__figure figure">
+      {/*
+        The photograph is the only thing that loads with the page — it is the
+        hero's largest paint and must not wait on anything. The clip is fetched
+        only after `load`, during idle time, and cross-fades in on top once it
+        is genuinely playing.
+      */}
       <Picture
         src={sculpture}
         formats={['avif', 'webp']}
@@ -38,9 +44,72 @@ const sculpture = img('hero-sculpture');
         loading="eager"
         fetchpriority="high"
       />
+
+      <video
+        class="hero__video"
+        data-hero-video
+        width="464"
+        height="640"
+        muted
+        loop
+        playsinline
+        disablepictureinpicture
+        preload="none"
+        aria-hidden="true"
+        tabindex="-1"><source
+          src="/media/hero-sculpture.av1.mp4"
+          type="video/mp4; codecs=av01.0.05M.08"
+        /><source src="/media/hero-sculpture.h264.mp4" type="video/mp4; codecs=avc1.4D401F" /></video>
     </figure>
   </div>
 </section>
+
+<script is:inline>
+  (() => {
+    const video = document.querySelector('[data-hero-video]');
+    if (!video) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    /* Never spend someone's metered or slow connection on decoration. */
+    const net = navigator.connection;
+    if (net && (net.saveData || /(^|-)2g$/.test(net.effectiveType || ''))) return;
+
+    const start = () => {
+      video.addEventListener('playing', () => video.classList.add('is-playing'), {
+        once: true,
+      });
+      video.load();
+      const attempt = video.play();
+      if (attempt) attempt.catch(() => {});
+
+      /* Stop decoding once it is scrolled away. */
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                const resumed = video.play();
+                if (resumed) resumed.catch(() => {});
+              } else {
+                video.pause();
+              }
+            }
+          },
+          { threshold: 0.05 },
+        ).observe(video);
+      }
+    };
+
+    const idle = (fn) =>
+      'requestIdleCallback' in window
+        ? requestIdleCallback(fn, { timeout: 2500 })
+        : setTimeout(fn, 400);
+
+    if (document.readyState === 'complete') idle(start);
+    else window.addEventListener('load', () => idle(start), { once: true });
+  })();
+</script>
 
 <style>
   .hero {
@@ -122,6 +191,22 @@ const sculpture = img('hero-sculpture');
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
   }
+
+  /* Sits under .figure::after, so the clip picks up the same warm veil and
+     colour treatment as every other photograph on the site. */
+  .hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(0.9) contrast(1.02);
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    pointer-events: none;
+  }
+
+  .hero__video.is-playing { opacity: 1; }
 
   @media (min-width: 62em) {
     .hero__inner { grid-template-columns: 1.15fr 0.85fr; }

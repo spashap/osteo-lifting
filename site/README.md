@@ -114,6 +114,29 @@ site/
 Cormorant Garamond display over Inter body (both self-hosted with Cyrillic subsets), a fluid `clamp()`
 type scale, and one shared image treatment that normalises photographs from very different sources.
 
+## Hero video
+
+The hero sculpture animates. The still photograph is what loads with the page — it is the hero's largest
+paint and waits on nothing. The clip is fetched only after the `load` event, during idle time, and
+cross-fades in on top once it is genuinely playing.
+
+| | |
+|---|---|
+| Source | `../resources/osteo-vid.mp4` — 464x640, 24 fps, 6.0 s, 603 kB |
+| Shipped | `public/media/hero-sculpture.av1.mp4` **66 kB** · `.h264.mp4` **79 kB** |
+| Re-encode | `bash scripts/encode-hero-video.sh ../resources/osteo-vid.mp4` |
+
+Exactly one file is downloaded — the browser picks AV1 where it can, H.264 otherwise (notably iPhones
+older than the A17). Audio is stripped: it is decoration, and a silent track would also risk tripping
+autoplay policies.
+
+The clip does not end where it starts, so it is rebuilt as a seamless loop with a 0.5 s crossfade, ordered
+so that frame 0 is the opening pose — the one matching the poster photograph — which is why the fade-in
+shows no jump. See the comments in the encode script for the arithmetic.
+
+It is skipped entirely under `prefers-reduced-motion`, on `saveData`, and on 2G. It pauses when scrolled
+out of view. If anything fails, the photograph simply stays.
+
 ## Motion
 
 Deliberately built on platform primitives rather than a library — **no JavaScript bundles**, only two
