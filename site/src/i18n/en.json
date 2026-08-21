@@ -48,21 +48,9 @@
     ],
     "stats": [
       { "prefix": "conducted more than", "value": "200", "label": "seminars" },
-      { "prefix": "in", "value": "14", "label": "countries" },
-      { "prefix": "trained over", "value": "6500", "label": "students" }
+      { "prefix": "in", "value": "16", "label": "countries" },
+      { "prefix": "trained over", "value": "7000", "label": "students worldwide" }
     ]
-  },
-  "director": {
-    "eyebrow": "IAO'S DIRECTOR AND TEACHER",
-    "prefix": "PHYSICAL REHABILITATION SPECIALIST",
-    "name": "OLENA HRINCHUK",
-    "nameNatural": "Olena Hrinchuk",
-    "bullets": [
-      "aesthetic masseur with experience of more than 16 years. Thousands of satisfied customers",
-      "founder of the cosmetics brand Mellarius"
-    ],
-    "founderOf": "founder of",
-    "spaName": "API SPA by Olena Hrinchuk"
   },
   "forWhom": {
     "title": "For whom?",
@@ -82,8 +70,7 @@
       "Two-day training; <strong>100% hands-on practice</strong>; Individualized support",
       "The personal training package (1-2 people), before the <strong>New year</strong>, includes 1 session of osteolifting as <strong>a gift</strong>",
       "Can provide <strong>a safe alternative</strong> to invasives and rejuvenation surgeries",
-      "Online video course, book and certificate",
-      "Opportunity to practice Osteolifting technique in <strong>API SPA by Olena Hrinchuk</strong>"
+      "Online video course, book and certificate"
     ]
   },
   "coursesSection": {
@@ -95,7 +82,7 @@
       "slug": "osteo-lifting",
       "title": "Osteo-lifting",
       "format": "Offline.",
-      "teachers": ["Teacher - Ariel Pelevin", "Teacher in Ukraine - Elena Grinchuk"],
+      "teachers": ["Teacher - Ariel Pelevin"],
       "summary": "Deep tissue facial release and biodynamic facial lifting.",
       "sections": [
         {
@@ -122,10 +109,10 @@
         }
       ],
       "ctas": [
-        { "label": "Make an appointment with A. Pelevin", "href": "https://t.me/osteolifting", "kind": "primary" },
-        { "label": "Make an appointment with O. Grynchuk", "href": "https://t.me/Olena_Hrinchuk", "kind": "secondary" }
+        { "label": "Sign up", "href": "https://t.me/osteolifting", "kind": "primary" },
+        { "label": "Consultation", "href": "https://t.me/osteolifting", "kind": "secondary" }
       ],
-      "metaDescription": "Two-day training: deep tissue facial release and biodynamic facial lifting. Teachers — Ariel Pelevin, and Elena Grinchuk in Ukraine."
+      "metaDescription": "Two-day training: deep tissue facial release and biodynamic facial lifting. Teacher — Ariel Pelevin."
     },
     {
       "slug": "osteo-lifting-3d",
@@ -205,7 +192,7 @@
       "slug": "tai-chi-pro",
       "title": "Tai Chi PRO massage",
       "format": "Offline.",
-      "teachers": ["The instructor is Olena Hrinchuk"],
+      "teachers": [],
       "summary": "The author's method by Ariel Pelevin.",
       "lead": "The author's method by Ariel Pelevin.",
       "paragraphs": [
@@ -226,10 +213,10 @@
         }
       ],
       "ctas": [
-        { "label": "Sign up", "href": "https://t.me/Olena_Hrinchuk", "kind": "primary" },
-        { "label": "Consultation", "href": "https://t.me/Olena_Hrinchuk", "kind": "secondary" }
+        { "label": "Sign up", "href": "https://t.me/osteolifting", "kind": "primary" },
+        { "label": "Consultation", "href": "https://t.me/osteolifting", "kind": "secondary" }
       ],
-      "metaDescription": "The author's method by Ariel Pelevin: multi-articular and volumetric ergonomics worked through the forearms. Instructor — Olena Hrinchuk."
+      "metaDescription": "The author's method by Ariel Pelevin: multi-articular and volumetric ergonomics worked through the forearms."
     }
   ],
   "videos": {
@@ -389,8 +376,7 @@
     ],
     "paragraphs": [
       "The main direction of the Academy became the methods of osteopathic and bioenergetic correction of face and body Osteo-Lifting and Osteo-Body.",
-      "At the moment it is possible to study with <strong>Ariel Pelevin</strong> individually in Serbia or by organizing a group of 6 students in Europe or Israel.",
-      "Training can be done in Ukraine by <strong>Elena Grinchuk</strong> individually or in groups of 6 students."
+      "At the moment it is possible to study with <strong>Ariel Pelevin</strong> individually in Serbia or by organizing a group of 6 students in Europe or Israel."
     ],
     "contactLine": "If you want to organize a seminar in your country or city, please",
     "contactCta": "contact us",
@@ -401,17 +387,16 @@
   },
   "seo": {
     "homeTitle": "International Academy OSTEO-LIFTING — osteolifting training",
-    "homeDescription": "International Academy OSTEO-LIFTING: training in manual non-surgical facial correction. Ariel Pelevin and Olena Hrinchuk. Group training of 4-10 persons.",
+    "homeDescription": "International Academy OSTEO-LIFTING: training in manual non-surgical facial correction. Teacher — Ariel Pelevin. Group training of 4-10 persons.",
     "methodTitle": "About the OSTEO-LIFTING method — International Academy",
     "historyTitle": "History of OSTEO-LIFTING Academy — since 2008",
     "coursesTitle": "OSTEO-LIFTING Academy products — offline training",
-    "coursesDescription": "Five Academy products: Osteo-lifting, Osteo-lifting 3D, Osteo-body, Osteo-dance and Tai Chi PRO massage. Teachers Ariel Pelevin and Olena Hrinchuk.",
+    "coursesDescription": "Five Academy products: Osteo-lifting, Osteo-lifting 3D, Osteo-body, Osteo-dance and Tai Chi PRO massage. Teacher — Ariel Pelevin.",
     "courseSuffix": "OSTEO-LIFTING Academy products"
   },
   "alt": {
     "hero-sculpture": "Porcelain sculpture of a face held by hands",
     "ariel-pelevin": "Ariel Pelevin holding the book \"Osteo-lifting\"",
-    "olena-hrinchuk": "Portrait of Olena Hrinchuk in a white shirt",
     "review-01": "Alexander Smetana, physical therapist from Warsaw",
     "review-02": "Valeria, Spain",
     "review-03": "Irina, Alicante, Spain",
@@ -430,17 +415,14 @@
     "academy-06": "Coffee break during an Academy seminar",
     "academy-07": "Training room with massage tables and a living green wall",
     "academy-08": "Massage tables by the panoramic window of the training room",
-    "academy-09": "Olena Hrinchuk showing a student a facial technique",
+    "academy-09": "A student practising a facial technique under a teacher’s guidance",
     "academy-10": "Seminar students performing the osteo-lifting technique together",
     "academy-11": "Working with the face during an Academy practical session",
     "academy-12": "A group of students practising the technique during a session",
     "academy-13": "Ariel Pelevin with a group of graduates and their certificates",
-    "academy-14": "Ariel Pelevin and Olena Hrinchuk with a group of graduates",
+    "academy-14": "Ariel Pelevin with course graduates and their certificates",
     "social-review-01": "Instagram review from an Academy student",
     "social-review-02": "Instagram review from an Academy student",
-    "social-review-03": "Instagram review from an Academy student",
-    "social-review-04": "Instagram review from an Academy student",
-    "social-review-05": "Instagram review from an Academy student",
-    "social-review-06": "Instagram review from an Academy student"
+    "social-review-03": "Instagram review from an Academy student"
   }
 }

@@ -5,7 +5,6 @@ const abs = (path: string) => new URL(path, SITE_URL).href;
 
 const ORG_ID = `${SITE_URL}/#organization`;
 const ARIEL_ID = `${SITE_URL}/#ariel-pelevin`;
-const OLENA_ID = `${SITE_URL}/#olena-hrinchuk`;
 
 /** ISO-8601 durations for the workloads the current copy actually states. */
 const WORKLOAD: Record<string, string | undefined> = {
@@ -34,19 +33,6 @@ export function personAriel(locale: Locale) {
   };
 }
 
-export function personOlena(locale: Locale) {
-  const t = useTranslations(locale);
-  return {
-    '@type': 'Person',
-    '@id': OLENA_ID,
-    name: t.director.nameNatural,
-    jobTitle: t.director.eyebrow,
-    description: t.director.bullets.join('. '),
-    worksFor: { '@id': ORG_ID },
-    sameAs: [SOCIAL.olenaInstagram, TELEGRAM.olena, SOCIAL.spaInstagram],
-  };
-}
-
 export function organization(locale: Locale) {
   const t = useTranslations(locale);
   return {
@@ -59,14 +45,8 @@ export function organization(locale: Locale) {
     image: abs('/og-image.jpg'),
     telephone: PHONE,
     founder: { '@id': ARIEL_ID },
-    employee: [{ '@id': ARIEL_ID }, { '@id': OLENA_ID }],
-    sameAs: [
-      SOCIAL.arielInstagram,
-      SOCIAL.arielFacebook,
-      SOCIAL.olenaInstagram,
-      SOCIAL.spaInstagram,
-      TELEGRAM.ariel,
-    ],
+    employee: [{ '@id': ARIEL_ID }],
+    sameAs: [SOCIAL.arielInstagram, SOCIAL.arielFacebook, TELEGRAM.ariel],
     // Seven signed testimonials from named practitioners, carried over verbatim.
     // No rating is asserted: the source reviews carry no scores.
     review: t.testimonials.items.map((item) => ({
@@ -110,10 +90,6 @@ export function course(locale: Locale, slug: string) {
   const c = t.courses.find((item) => item.slug === slug);
   if (!c) throw new Error(`Unknown course "${slug}"`);
   const url = abs(localePath(locale, `courses/${slug}`));
-  const instructor = c.teachers.some((line) => /Гринчук|Grinchuk|Hrinchuk/.test(line))
-    ? [{ '@id': ARIEL_ID }, { '@id': OLENA_ID }]
-    : [{ '@id': ARIEL_ID }];
-
   return {
     '@type': 'Course',
     '@id': `${url}#course`,
@@ -127,7 +103,7 @@ export function course(locale: Locale, slug: string) {
       courseMode: 'Onsite',
       inLanguage: LANG_TAG[locale],
       ...(WORKLOAD[slug] ? { courseWorkload: WORKLOAD[slug] } : {}),
-      instructor,
+      ...(c.teachers.length ? { instructor: { '@id': ARIEL_ID } } : {}),
     },
   };
 }

@@ -1,5 +1,5 @@
 ---
-import { PHONE, TELEGRAM } from '../config';
+import { PHONE } from '../config';
 import { useTranslations, type Locale } from '../i18n';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 const { locale } = Astro.props;
 const t = useTranslations(locale);
 
-/** Both booking links exactly as the Osteo-lifting product block words them. */
+/** Booking links exactly as the Osteo-lifting product block words them. */
 const ctas = t.courses[0].ctas;
 ---
 
@@ -35,9 +35,6 @@ const ctas = t.courses[0].ctas;
           </a>
         ))
       }
-      <a class="btn btn--ghostOnDark" href={TELEGRAM.ariel} target="_blank" rel="noopener">
-        {t.ui.consultation}
-      </a>
     </div>
   </div>
 </section>

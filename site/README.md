@@ -76,6 +76,14 @@ is the whole content layer; components hold no copy.
   out of every title, heading and meta description. They are the client's decision, not ours.
 - The `«до Нового года»` seasonal offer is still live in the copy because removing it is the client's call.
 
+**Client revisions, 2026-08-21.** Ariel asked for every mention of Olena Hrinchuk to be removed in all
+three languages, and for his own figures to read *16 countries* and *over 7000 students worldwide*. Both
+are applied. Consequences worth knowing: the instructors section is now a single block; Тай-Чи PRO массаж
+has no instructor line at all, pending replacement wording from him; the "API SPA by Olena Hrinchuk"
+benefit line is gone; and three of the six Instagram screenshots on the history page were dropped because
+her name is baked into the image. The "по всему миру" addition was translated into UK and EN
+("по всьому світу" / "worldwide") — worth a native check.
+
 Two mechanical cleanups were applied to the copy: stray `U+FFFC` object-replacement characters (artefacts
 of the old builder's emoji handling) were dropped, and the leading `- ` / `⁃ ` dashes were removed from
 list items now rendered as real `<li>`s.

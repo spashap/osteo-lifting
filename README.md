@@ -2,7 +2,7 @@
 
 Takeover and rebuild of **https://osteo-lifting.com** — Международная Академия OSTEO-LIFTING (M.A.O.),
 a training academy selling paid courses in a manual, non-surgical face-and-body correction method.
-Founder: Dr. Ariel Pelevin. Director/instructor in Ukraine: Olena Hrinchuk.
+Founder: Dr. Ariel Pelevin.
 
 | Directory | What it is |
 |---|---|
@@ -22,6 +22,7 @@ subscription (renewal 1 Oct 2026). Never delete it.
 - ✅ Discovery and audit
 - ✅ Full archive of the live site
 - ✅ Rebuild — 27 pages across three languages, full SEO layer, redirect map implemented
+- ✅ Client revision 2026-08-21 — all Olena Hrinchuk content removed; Ariel’s figures updated to 16 countries / 7000+ students
 - ⏳ Vercel project — connect the repo with **Root Directory = `site`**
 - ⏳ DNS move to Cloudflare — **not started, and gated on the client's approval**
 - ⏳ Search Console / Bing / GA4

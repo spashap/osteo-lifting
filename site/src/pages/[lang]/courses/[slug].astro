@@ -6,7 +6,7 @@ import CourseGrid from '../../../components/CourseGrid.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 
 import { LOCALES, localePath, useTranslations, type Locale } from '../../../i18n';
-import { graph, organization, course, breadcrumbs, personAriel, personOlena } from '../../../lib/schema';
+import { graph, organization, course, breadcrumbs, personAriel } from '../../../lib/schema';
 
 export function getStaticPaths() {
   return LOCALES.flatMap((lang) =>
@@ -30,7 +30,6 @@ const trail = [
 const schema = graph([
   organization(lang),
   personAriel(lang),
-  personOlena(lang),
   course(lang, slug),
   breadcrumbs(lang, trail),
 ]);
@@ -92,9 +91,11 @@ const secondary = item.ctas[1];
       <aside class="course__aside">
         <div class="booking">
           <p class="booking__format">{item.format}</p>
-          <ul class="booking__teachers">
-            {item.teachers.map((line) => <li>{line}</li>)}
-          </ul>
+          {item.teachers.length > 0 && (
+            <ul class="booking__teachers">
+              {item.teachers.map((line) => <li>{line}</li>)}
+            </ul>
+          )}
           <div class="booking__actions">
             {
               item.ctas.map((cta, i) => (

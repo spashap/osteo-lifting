@@ -27,12 +27,6 @@ const ariel = [
   { label: 'Facebook', href: SOCIAL.arielFacebook },
 ];
 
-const olena = [
-  { label: 'Telegram', href: TELEGRAM.olena },
-  { label: 'WhatsApp', href: WHATSAPP.olena },
-  { label: 'Instagram', href: SOCIAL.olenaInstagram },
-  { label: 'API SPA', href: SOCIAL.spaInstagram },
-];
 ---
 
 <footer class="site-footer">
@@ -73,20 +67,6 @@ const olena = [
       </ul>
     </div>
 
-    <div class="site-footer__col">
-      <h2 class="site-footer__title">{t.director.nameNatural}</h2>
-      <ul class="site-footer__list">
-        {
-          olena.map((link) => (
-            <li>
-              <a href={link.href} target="_blank" rel="noopener">
-                {link.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
   </div>
 
   <div class="container site-footer__legal">
@@ -162,12 +142,12 @@ const olena = [
   }
 
   @media (min-width: 40em) {
-    .site-footer__inner { grid-template-columns: repeat(3, 1fr); }
+    .site-footer__inner { grid-template-columns: repeat(2, 1fr); }
     .site-footer__brand { grid-column: 1 / -1; }
   }
 
   @media (min-width: 62em) {
-    .site-footer__inner { grid-template-columns: 1.4fr repeat(3, 1fr); }
+    .site-footer__inner { grid-template-columns: 1.6fr repeat(2, 1fr); }
     .site-footer__brand { grid-column: auto; }
   }
 </style>
