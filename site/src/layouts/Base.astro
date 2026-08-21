@@ -151,6 +151,7 @@ const t = useTranslations(locale);
             let channel = 'other';
             if (href.includes('t.me')) channel = 'telegram';
             else if (href.includes('whatsapp')) channel = 'whatsapp';
+            else if (href.includes('instagram')) channel = 'instagram';
             else if (href.includes('facebook')) channel = 'facebook';
             window.gtag('event', 'outbound_click', {
               channel,

@@ -86,8 +86,11 @@ her name is baked into the image. The "по всему миру" addition was tr
 **Second client revision, same day.** Ariel asked for the «до Нового года» gift-session line to be
 removed outright — it is gone from all three languages, leaving seven benefit items — and for every
 Instagram reference to go. That removed his Instagram link from the instructor block, the footer and the
-JSON-LD sameAs, and it removed the videos section entirely, because both "video" links pointed at
-Instagram reels. The three remaining testimonial screenshots on the history page are Telegram and
+JSON-LD sameAs, and it removed the videos section, because both "video" links pointed at Instagram
+reels. He then asked for the Osteo-lifting reel specifically to be brought back, so that one link is
+live again — it is now the only Instagram reference on the site. The Tai-Chi PRO reel stays removed.
+It is a plain outbound link, never an embed: Instagram’s embed script is heavy third-party JavaScript
+and would undo the zero-bundle budget. The three remaining testimonial screenshots on the history page are Telegram and
 iMessage captures, not Instagram, so they stay; only their alt wording changed.
 
 Two mechanical cleanups were applied to the copy: stray `U+FFFC` object-replacement characters (artefacts

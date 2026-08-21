@@ -3,6 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import PageHero from '../../../components/PageHero.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CourseGrid from '../../../components/CourseGrid.astro';
+import Videos from '../../../components/Videos.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 
 import { LOCALES, localePath, useTranslations, type Locale } from '../../../i18n';
@@ -38,5 +39,6 @@ const schema = graph([
   <Breadcrumbs trail={trail} />
   <PageHero eyebrow={t.brand.mark} titleBrand={t.coursesSection.titlePlain} />
   <CourseGrid locale={lang} showEyebrow={false} heading={t.nav.courses} />
+  <Videos locale={lang} />
   <CtaBand locale={lang} />
 </Base>
