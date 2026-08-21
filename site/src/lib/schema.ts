@@ -24,7 +24,7 @@ export function personAriel(locale: Locale) {
     image: abs('/og-image.jpg'),
     url: abs(localePath(locale)),
     worksFor: { '@id': ORG_ID },
-    sameAs: [SOCIAL.arielInstagram, SOCIAL.arielFacebook, TELEGRAM.ariel],
+    sameAs: [SOCIAL.arielFacebook, TELEGRAM.ariel],
     hasCredential: ['PhD (USA)', 'BSC (Spain)', 'MT (Israel)'].map((name) => ({
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: 'degree',
@@ -46,7 +46,7 @@ export function organization(locale: Locale) {
     telephone: PHONE,
     founder: { '@id': ARIEL_ID },
     employee: [{ '@id': ARIEL_ID }],
-    sameAs: [SOCIAL.arielInstagram, SOCIAL.arielFacebook, TELEGRAM.ariel],
+    sameAs: [SOCIAL.arielFacebook, TELEGRAM.ariel],
     // Seven signed testimonials from named practitioners, carried over verbatim.
     // No rating is asserted: the source reviews carry no scores.
     review: t.testimonials.items.map((item) => ({

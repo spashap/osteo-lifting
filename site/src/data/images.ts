@@ -24,7 +24,7 @@ export const galleryKeys = Array.from({ length: 14 }, (_, i) =>
   `academy-${String(i + 1).padStart(2, '0')}`,
 );
 
-/** Instagram testimonial screenshots the old carousel failed to render. */
+/** Testimonial screenshots the old carousel failed to render. */
 export const socialReviewKeys = Array.from({ length: 3 }, (_, i) =>
   `social-review-${String(i + 1).padStart(2, '0')}`,
 );

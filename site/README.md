@@ -74,15 +74,21 @@ is the whole content layer; components hold no copy.
 - Titles, meta descriptions and `alt` text are *derived* from words already on the page — no new claims.
 - The medical / weight-loss claims in the body copy are carried forward exactly as written and are kept
   out of every title, heading and meta description. They are the client's decision, not ours.
-- The `«до Нового года»` seasonal offer is still live in the copy because removing it is the client's call.
 
 **Client revisions, 2026-08-21.** Ariel asked for every mention of Olena Hrinchuk to be removed in all
 three languages, and for his own figures to read *16 countries* and *over 7000 students worldwide*. Both
 are applied. Consequences worth knowing: the instructors section is now a single block; Тай-Чи PRO массаж
 has no instructor line at all, pending replacement wording from him; the "API SPA by Olena Hrinchuk"
-benefit line is gone; and three of the six Instagram screenshots on the history page were dropped because
+benefit line is gone; and three of the six screenshots on the history page were dropped because
 her name is baked into the image. The "по всему миру" addition was translated into UK and EN
 ("по всьому світу" / "worldwide") — worth a native check.
+
+**Second client revision, same day.** Ariel asked for the «до Нового года» gift-session line to be
+removed outright — it is gone from all three languages, leaving seven benefit items — and for every
+Instagram reference to go. That removed his Instagram link from the instructor block, the footer and the
+JSON-LD sameAs, and it removed the videos section entirely, because both "video" links pointed at
+Instagram reels. The three remaining testimonial screenshots on the history page are Telegram and
+iMessage captures, not Instagram, so they stay; only their alt wording changed.
 
 Two mechanical cleanups were applied to the copy: stray `U+FFFC` object-replacement characters (artefacts
 of the old builder's emoji handling) were dropped, and the leading `- ` / `⁃ ` dashes were removed from

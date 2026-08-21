@@ -21,7 +21,6 @@ export const WHATSAPP = {
 } as const;
 
 export const SOCIAL = {
-  arielInstagram: 'https://www.instagram.com/ariel.pelevin/',
   arielFacebook: 'https://www.facebook.com/pelevin.ariel',
 } as const;
 

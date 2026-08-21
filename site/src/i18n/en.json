@@ -72,7 +72,6 @@
       "Group training <strong>4-10</strong> persons",
       "You will be able to completely change the structure of the skull, tissues and create the necessary <strong>lifting effect</strong> in <strong>2-5</strong> sessions",
       "Two-day training; <strong>100% hands-on practice</strong>; Individualized support",
-      "The personal training package (1-2 people), before the <strong>New year</strong>, includes 1 session of osteolifting as <strong>a gift</strong>",
       "Can provide <strong>a safe alternative</strong> to invasives and rejuvenation surgeries",
       "Online video course, book and certificate"
     ]
@@ -223,12 +222,6 @@
       "metaDescription": "The author's method by Ariel Pelevin: multi-articular and volumetric ergonomics worked through the forearms."
     }
   ],
-  "videos": {
-    "items": [
-      { "label": "Osteo-lifting video", "href": "https://www.instagram.com/reel/C5dPjWio26q/?igsh=NTRreWEyZ2licWJs" },
-      { "label": "Tai Chi PRO massage video", "href": "https://www.instagram.com/reel/C5JXs8woATz/?igsh=MWZ4amJuOWl0eG05cg==" }
-    ]
-  },
   "testimonials": {
     "title": "Reviews",
     "items": [
@@ -425,8 +418,8 @@
     "academy-12": "A group of students practising the technique during a session",
     "academy-13": "Ariel Pelevin with a group of graduates and their certificates",
     "academy-14": "Ariel Pelevin with course graduates and their certificates",
-    "social-review-01": "Instagram review from an Academy student",
-    "social-review-02": "Instagram review from an Academy student",
-    "social-review-03": "Instagram review from an Academy student"
+    "social-review-01": "Review from an Academy student",
+    "social-review-02": "Review from an Academy student",
+    "social-review-03": "Review from an Academy student"
   }
 }
