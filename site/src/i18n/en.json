@@ -29,7 +29,11 @@
     "allCourses": "All Academy products",
     "notFoundTitle": "Page not found",
     "notFoundText": "This page does not exist. Go back to the main page or choose an Academy product.",
-    "breadcrumbHome": "Home"
+    "breadcrumbHome": "Home",
+    "readMore": "Read in full",
+    "readLess": "Collapse",
+    "galleryTitle": "The Academy at work",
+    "seeAll": "See all"
   },
   "hero": {
     "titleTop": "International Academy",

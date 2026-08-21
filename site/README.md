@@ -137,6 +137,25 @@ shows no jump. See the comments in the encode script for the arithmetic.
 It is skipped entirely under `prefers-reduced-motion`, on `saveData`, and on 2G. It pauses when scrolled
 out of view. If anything fails, the photograph simply stays.
 
+## Home page composition
+
+The home page is the hub; `/method/` and `/history/` are spokes. Two blocks link out to them rather
+than absorbing their content, which would have left the spoke pages thin and duplicated:
+
+- **`MethodTeaser`** — one paragraph of the method description plus the two named blocks, then the
+  before/after results at full width, linking to `/method/`. The results are 9:16 story exports; in a
+  half-width column nothing in them is legible, hence the full-width row.
+- **`HomeGallery`** — six photographs from the history page as a dark band, linking to `/history/`.
+  Graduates with certificates and rooms of people practising are the most immediately legible proof
+  that this is a real school.
+
+Both also exist because, before them, nothing between the hero and the footer routed anyone to those
+two pages.
+
+Testimonials longer than 340 characters are clamped to four lines behind a native `<details>`
+disclosure. Every word stays in the DOM, so search engines and the `Review` structured data are
+unaffected. Short ones render plainly rather than asking anyone to expand two sentences.
+
 ## Motion
 
 Deliberately built on platform primitives rather than a library — **no JavaScript bundles**, only two

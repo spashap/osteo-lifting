@@ -3,10 +3,12 @@ import Base from '../../layouts/Base.astro';
 import Hero from '../../components/Hero.astro';
 import StatBar from '../../components/StatBar.astro';
 import Instructors from '../../components/Instructors.astro';
+import MethodTeaser from '../../components/MethodTeaser.astro';
 import ForWhom from '../../components/ForWhom.astro';
 import Benefits from '../../components/Benefits.astro';
 import CourseGrid from '../../components/CourseGrid.astro';
 import Videos from '../../components/Videos.astro';
+import HomeGallery from '../../components/HomeGallery.astro';
 import Testimonials from '../../components/Testimonials.astro';
 import Faq from '../../components/Faq.astro';
 import CtaBand from '../../components/CtaBand.astro';
@@ -38,10 +40,12 @@ const schema = graph([
   <Hero locale={lang} />
   <StatBar locale={lang} />
   <Instructors locale={lang} />
+  <MethodTeaser locale={lang} />
   <ForWhom locale={lang} />
   <Benefits locale={lang} />
   <CourseGrid locale={lang} tint showEyebrow={false} heading={t.coursesSection.titlePlain} />
   <Videos locale={lang} />
+  <HomeGallery locale={lang} />
   <Testimonials locale={lang} />
   <Faq locale={lang} />
   <CtaBand locale={lang} />

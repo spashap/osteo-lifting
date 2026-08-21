@@ -398,14 +398,16 @@ ul, ol { margin: 0; padding: 0; }
   @media (prefers-reduced-motion: no-preference) {
     :root { interpolate-size: allow-keywords; }
 
-    .faq__item::details-content {
+    .faq__item::details-content,
+    .review__disclosure::details-content {
       block-size: 0;
       overflow: clip;
       transition: block-size 0.35s cubic-bezier(0.3, 0.7, 0.3, 1),
         content-visibility 0.35s allow-discrete;
     }
 
-    .faq__item[open]::details-content { block-size: auto; }
+    .faq__item[open]::details-content,
+    .review__disclosure[open]::details-content { block-size: auto; }
   }
 }
 

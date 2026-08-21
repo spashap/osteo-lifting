@@ -27,7 +27,7 @@ const links = [
     </div>
 
     <article class="person reveal">
-      <figure class="person__figure figure ratio-square">
+      <figure class="person__figure figure">
         <Picture
           src={img('ariel-pelevin')}
           formats={['avif', 'webp']}
@@ -71,6 +71,7 @@ const links = [
   .person__figure {
     margin: 0;
     max-width: 24rem;
+    aspect-ratio: 4 / 5;
   }
 
   .person__body {

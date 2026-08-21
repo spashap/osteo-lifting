@@ -37,16 +37,25 @@ const t = useTranslations(locale);
   .stats__inner {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto auto;
     gap: clamp(1rem, 3vw, 2.5rem);
     padding-block: clamp(2rem, 4vw, 3rem);
     text-align: center;
   }
 
   .stats__item {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
     gap: 0.15rem;
     position: relative;
+  }
+
+  /* Without subgrid, reserve two lines for the prefix so the numbers still
+     line up when one prefix wraps and another does not. */
+  @supports not (grid-template-rows: subgrid) {
+    .stats__item { display: flex; flex-direction: column; }
+    .stats__prefix { min-height: 2.4em; }
   }
 
   .stats__item + .stats__item::before {
@@ -60,6 +69,7 @@ const t = useTranslations(locale);
   }
 
   .stats__prefix {
+    align-self: end;
     font-size: 0.68rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -84,7 +94,9 @@ const t = useTranslations(locale);
   }
 
   .stats__label {
+    align-self: start;
     font-size: var(--step--1);
     color: var(--ink-soft);
+    text-wrap: balance;
   }
 </style>

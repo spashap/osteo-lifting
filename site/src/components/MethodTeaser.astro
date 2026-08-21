@@ -1,0 +1,163 @@
+---
+import { Picture } from 'astro:assets';
+import { img, resultKeys } from '../data/images';
+import { localePath, useTranslations, type Locale } from '../i18n';
+
+/**
+ * Answers "what is this method?" on the home page, which previously only became
+ * clear after clicking through. Copy is a short excerpt of `/method/`; the full
+ * text stays there so the spoke page keeps its own reason to exist.
+ *
+ * The before/after images run full width rather than in a side column — they are
+ * 9:16 story exports, and squeezed into half the page nothing in them is legible.
+ */
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+/* The second paragraph is the plain descriptor of the approach. */
+const lede = t.method.paragraphs[1];
+---
+
+<section class="section methodTeaser" id="method">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{t.nav.method}</p>
+      <h2 class="h2">{t.method.titlePlain}</h2>
+      <hr class="rule" />
+    </div>
+
+    <div class="methodTeaser__top reveal">
+      <p class="lede methodTeaser__lede" set:html={lede} />
+
+      <ul class="methodTeaser__blocks">
+        {
+          t.method.blocks.map((block) => (
+            <li class="methodTeaser__block">
+              <img
+                class="methodTeaser__icon"
+                src={`/icons/icon-${block.icon}.svg`}
+                width="36"
+                height="48"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="methodTeaser__blockTitle">{block.title}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="methodTeaser__resultsHead">
+      <h3 class="h4 methodTeaser__resultsTitle">{t.method.resultsTitle}</h3>
+    </div>
+
+    <ul class="methodTeaser__results">
+      {
+        resultKeys.map((key) => (
+          <li class="methodTeaser__result reveal">
+            <a class="methodTeaser__resultLink" href={localePath(locale, 'method')}>
+              <figure class="figure figure--plain ratio-story">
+                <Picture
+                  src={img(key)}
+                  formats={['avif', 'webp']}
+                  widths={[360, 560, 732]}
+                  sizes="(min-width: 48em) 30vw, 84vw"
+                  alt={t.alt[key as keyof typeof t.alt]}
+                  loading="lazy"
+                />
+              </figure>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="methodTeaser__cta">
+      <a class="btn btn--secondary" href={localePath(locale, 'method')}>
+        {t.hero.ctaMethod}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .methodTeaser { border-top: 1px solid var(--line); }
+
+  .methodTeaser__top {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+  }
+
+  .methodTeaser__lede { margin: 0; }
+
+  .methodTeaser__blocks {
+    list-style: none;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .methodTeaser__block {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .methodTeaser__icon {
+    width: 1.6rem;
+    height: 2.2rem;
+    flex: none;
+    object-fit: contain;
+  }
+
+  .methodTeaser__blockTitle {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.15;
+  }
+
+  .methodTeaser__resultsHead {
+    margin-top: clamp(2.5rem, 5vw, 3.5rem);
+    margin-bottom: 1.25rem;
+  }
+
+  .methodTeaser__resultsTitle { color: var(--ink); }
+
+  .methodTeaser__results {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .methodTeaser__result figure { margin: 0; }
+
+  .methodTeaser__resultLink {
+    display: block;
+    border-radius: var(--radius-lg);
+    transition: box-shadow 250ms ease;
+  }
+
+  .methodTeaser__resultLink:hover { box-shadow: var(--shadow); }
+
+  .methodTeaser__cta { margin-top: clamp(2rem, 4vw, 2.5rem); }
+
+  @media (min-width: 48em) {
+    .methodTeaser__results { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 62em) {
+    .methodTeaser__top { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .methodTeaser__blocks { grid-template-columns: 1fr; }
+  }
+</style>

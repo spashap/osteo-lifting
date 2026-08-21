@@ -9,6 +9,21 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useTranslations(locale);
+
+/**
+ * Several of these run to five paragraphs, which turned the section into a wall
+ * of text. Long ones are clamped to a few lines behind a native `<details>`
+ * disclosure — no JavaScript, and every word stays in the DOM for search
+ * engines and for the `Review` structured data. Short ones render plainly, so
+ * no one is asked to expand two sentences.
+ */
+const LONG = 340;
+
+const items = t.testimonials.items.map((item) => {
+  const [first, ...rest] = item.body;
+  const length = item.body.join(' ').length;
+  return { ...item, first, rest, clamp: length > LONG };
+});
 ---
 
 <section class="section" id="reviews">
@@ -20,7 +35,7 @@ const t = useTranslations(locale);
 
     <div class="reviews">
       {
-        t.testimonials.items.map((item) => (
+        items.map((item) => (
           <figure class="review reveal">
             <div class="review__head">
               <div class="review__avatar figure">
@@ -38,11 +53,29 @@ const t = useTranslations(locale);
                 <span class="review__place">{item.place}</span>
               </figcaption>
             </div>
-            <blockquote class="review__body">
-              {item.body.map((paragraph) => (
-                <p>{paragraph}</p>
-              ))}
-            </blockquote>
+
+            {item.clamp ? (
+              <details class="review__disclosure">
+                <summary class="review__summary">
+                  <span class="review__preview">{item.first}</span>
+                  <span class="review__toggle">
+                    <span class="review__toggleOpen">{t.ui.readMore}</span>
+                    <span class="review__toggleClose">{t.ui.readLess}</span>
+                  </span>
+                </summary>
+                <blockquote class="review__body review__rest">
+                  {item.rest.map((paragraph) => (
+                    <p>{paragraph}</p>
+                  ))}
+                </blockquote>
+              </details>
+            ) : (
+              <blockquote class="review__body">
+                {item.body.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </blockquote>
+            )}
           </figure>
         ))
       }
@@ -112,6 +145,68 @@ const t = useTranslations(locale);
   }
 
   .review__body p { margin: 0; }
+
+  /* --- clamped variant ------------------------------------------------ */
+
+  .review__summary {
+    display: block;
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .review__summary::-webkit-details-marker { display: none; }
+
+  .review__preview {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+    font-size: var(--step--1);
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .review__disclosure[open] .review__preview {
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    overflow: visible;
+  }
+
+  .review__toggle {
+    display: inline-block;
+    margin-top: 0.8rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  .review__summary:hover .review__toggle { text-decoration: underline; }
+
+  .review__toggle::after {
+    content: '';
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-left: 0.5em;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 250ms ease;
+  }
+
+  .review__disclosure[open] .review__toggle::after {
+    transform: translateY(1px) rotate(-135deg);
+  }
+
+  .review__toggleClose { display: none; }
+
+  .review__disclosure[open] .review__toggleOpen { display: none; }
+  .review__disclosure[open] .review__toggleClose { display: inline; }
+
+  .review__rest { margin-top: 0.8em; }
 
   @media (min-width: 62em) {
     .reviews {
