@@ -295,6 +295,9 @@ ul, ol { margin: 0; padding: 0; }
    Motion — CSS-first, scroll-linked where supported, and always optional
    ========================================================================= */
 
+/* Scroll-linked entry. Where the browser has scroll-driven animations these run
+   off the main thread for free; `no-view-timeline` is set by the inline script
+   in Base.astro only for engines that lack them (Firefox today). */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     .reveal {
@@ -302,12 +305,72 @@ ul, ol { margin: 0; padding: 0; }
       animation-timeline: view();
       animation-range: entry 5% cover 22%;
     }
+
+    .section-head .rule,
+    .pageHero .rule {
+      transform-origin: left center;
+      animation: rule-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 26%;
+    }
+  }
+
+  html.no-view-timeline .reveal {
+    opacity: 0;
+    transform: translateY(1.25rem);
+    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.7, 0.25, 1);
+  }
+
+  html.no-view-timeline .reveal.is-in {
+    opacity: 1;
+    transform: none;
   }
 }
 
 @keyframes reveal-in {
   from { opacity: 0; transform: translateY(1.25rem); }
   to { opacity: 1; transform: none; }
+}
+
+@keyframes rule-grow {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Header lifts off the page as you leave the top. Driven by scroll position,
+   not by a timer, so it is not "motion" in the reduced-motion sense. */
+@supports (animation-timeline: scroll()) {
+  .site-header {
+    animation: header-lift linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 100px;
+  }
+}
+
+@keyframes header-lift {
+  from { box-shadow: 0 12px 28px -28px rgba(43, 35, 32, 0); }
+  to { box-shadow: 0 12px 28px -24px rgba(43, 35, 32, 0.5); }
+}
+
+/* Native cross-document page transitions — one at-rule, no JavaScript. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+
+/* Animated <details>, using the platform's own disclosure animation. */
+@supports selector(::details-content) {
+  @media (prefers-reduced-motion: no-preference) {
+    :root { interpolate-size: allow-keywords; }
+
+    .faq__item::details-content {
+      block-size: 0;
+      overflow: clip;
+      transition: block-size 0.35s cubic-bezier(0.3, 0.7, 0.3, 1),
+        content-visibility 0.35s allow-discrete;
+    }
+
+    .faq__item[open]::details-content { block-size: auto; }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

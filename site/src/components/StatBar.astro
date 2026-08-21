@@ -15,7 +15,12 @@ const t = useTranslations(locale);
       t.founder.stats.map((stat) => (
         <div class="stats__item reveal">
           <p class="stats__prefix">{stat.prefix}</p>
-          <p class="stats__value">{stat.value}</p>
+          <p class="stats__value">
+            <span
+              class="stats__num"
+              data-count-to={stat.value}
+              style={`--digits:${stat.value.length}`}>{stat.value}</span>
+          </p>
           <p class="stats__label">{stat.label}</p>
         </div>
       ))
@@ -67,8 +72,15 @@ const t = useTranslations(locale);
     font-weight: 500;
     line-height: 1;
     color: var(--contrast);
-    font-variant-numeric: lining-nums;
-    font-feature-settings: 'lnum' 1;
+    /* tabular so the digits do not jitter while the counter runs */
+    font-variant-numeric: lining-nums tabular-nums;
+    font-feature-settings: 'lnum' 1, 'tnum' 1;
+  }
+
+  /* Reserve the final width so the counter cannot shift the layout as it runs. */
+  .stats__num {
+    display: inline-block;
+    min-width: calc(var(--digits) * 1ch);
   }
 
   .stats__label {

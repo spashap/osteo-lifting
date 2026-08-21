@@ -11,7 +11,7 @@ const t = useTranslations(locale);
 
 <section class="section section--tint" id="faq">
   <div class="container container--narrow">
-    <div class="section-head">
+    <div class="section-head reveal">
       <h2 class="h2">{t.faq.title}</h2>
       <hr class="rule" />
     </div>
@@ -19,7 +19,7 @@ const t = useTranslations(locale);
     <div class="faq">
       {
         t.faq.items.map((item) => (
-          <details class="faq__item">
+          <details class="faq__item reveal">
             <summary class="faq__q">
               <span>{item.q}</span>
               <span class="faq__icon" aria-hidden="true" />

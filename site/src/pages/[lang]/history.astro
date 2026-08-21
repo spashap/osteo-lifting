@@ -67,7 +67,7 @@ const schema = graph([organization(lang), breadcrumbs(lang, trail)]);
       <ul class="gallery">
         {
           galleryKeys.map((key, i) => (
-            <li class:list={['gallery__item', i % 5 === 0 && 'gallery__item--wide']}>
+            <li class:list={['gallery__item', 'reveal', i % 5 === 0 && 'gallery__item--wide']}>
               <figure class="figure gallery__figure">
                 <Picture
                   src={img(key)}

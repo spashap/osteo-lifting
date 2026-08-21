@@ -113,4 +113,26 @@ site/
 `src/styles/global.css` holds the whole system: warm-bone ground, espresso contrast, tan/rose accent,
 Cormorant Garamond display over Inter body (both self-hosted with Cyrillic subsets), a fluid `clamp()`
 type scale, and one shared image treatment that normalises photographs from very different sources.
-Motion is CSS-only (`animation-timeline: view()`), and disabled under `prefers-reduced-motion`.
+
+## Motion
+
+Deliberately built on platform features rather than a library — there are **no JavaScript bundles**, only
+one ~1.8 kB inline script.
+
+| Effect | How |
+|---|---|
+| Section/card entry reveals | `animation-timeline: view()` — scroll-driven, runs off the main thread |
+| Accent rules drawing in | same, `scaleX` on `.rule` |
+| Header lifting off the page | `animation-timeline: scroll(root)`, shadow only |
+| Page-to-page transitions | `@view-transition { navigation: auto }` — one at-rule, no JS |
+| FAQ open/close | `::details-content` + `interpolate-size: allow-keywords` |
+| Hero image settling | plain CSS keyframe, `transform` only — never `opacity`, so LCP is not delayed |
+| Stat counters | the inline script (`[data-count-to]`, IntersectionObserver + rAF) |
+| Reveals on Firefox | the same script adds `.no-view-timeline`, switching reveals to an IntersectionObserver + transition path |
+
+Everything degrades to a static, fully visible page: the fallback class is only ever added *by* the
+script, so with JavaScript off nothing is left hidden. All of it sits inside
+`@media (prefers-reduced-motion: no-preference)`.
+
+The counters reserve their final width (`min-width: calc(var(--digits) * 1ch)` with tabular figures) so
+counting up cannot cause layout shift — measured CLS contribution is 0.
