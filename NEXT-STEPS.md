@@ -1,8 +1,9 @@
 # Next Steps — start here
 
 **Session 1 (2026-08-20):** discovery complete, full audit written, site archived.
-**Session 2 (2026-08-21):** rebuild built in [`site/`](site/) and pushed to GitHub. Steps 1 and 7 done.
-**Session 3 starts at Step 2 — DNS — which is still the urgent one.**
+**Session 2 (2026-08-21):** rebuild built, design iterated, two rounds of client revisions applied,
+all pushed. Steps 1 and 7 done.
+**Session 3 starts at Step 10 — the contact form.** DNS (Step 2) is owned by Pavel directly.
 
 Goals, in order: **modern design** → **SEO/technical rebuild** → **operational control**.
 Content is frozen (verbatim migration). Email is untouched. Hosting is Vercel free + GitHub. DNS to
@@ -19,12 +20,13 @@ Cloudflare. Registrar stays at NIC.UA in Ariel's name.
 | Git repo | ✅ Done — pushed to `github.com/spashap/osteo-lifting` |
 | Rebuild | ✅ Done — [`site/`](site/), Astro, 27 pages, RU/UK/EN |
 | Vercel project | ⏳ Repo ready to import — **Root Directory must be `site`** |
-| DNS moved off Weblium | ❌ **Not done — this is the urgent one** |
+| DNS moved off Weblium | ⏳ Owned by Pavel directly — do not re-raise |
 | Search Console / Analytics | ❌ Nothing exists |
 | Domain attached to the new site | ❌ Deliberately not done — waiting on Ariel's approval |
+| Contact form | ❌ **The next build task** — see Step 10 |
 
-⏰ **Weblium renews 1 October 2026 with a failing card.** Roughly six weeks out. The archive means the
-content is now safe either way — but DNS and email are not, until Step 2.
+The domain has been extended by two years (confirmed 2026-08-21). The Weblium renewal and the DNS move
+are being handled by Pavel directly and should not be raised again in reports.
 
 ---
 
@@ -171,6 +173,45 @@ Import the repo in Vercel and set **Root Directory = `site`**. Everything else i
 
 ---
 
+## Step 10 — Contact form (the next build task)
+
+Ariel has settled the scope: **a purely informational landing site plus a contact form. No calendar, no
+published pricing, no booking system.** Do not re-propose those.
+
+The site currently has zero forms; every CTA is an outbound Telegram or WhatsApp link.
+
+Agreed design, blocked only on credentials:
+
+- **Deliver submissions into Telegram via a bot** — his whole funnel already lives there, so enquiries
+  arrive where he already works. It is a static site on Vercel with no backend; the alternatives are an
+  email service (Resend/Postmark) or a third-party form service.
+- **Needed from Ariel:** a bot token and chat ID, or an email address to deliver to.
+- **Fields:** name, contact, message, which course. Anything more kills completion.
+- **Spam:** honeypot plus rate limiting. No CAPTCHA.
+- **EU visitors are real** (Spain, Netherlands, Latvia in the traffic data), so the form wants a consent
+  checkbox and one line on what happens to the data. There is still no privacy policy of any kind.
+
+---
+
+## Step 11 — Client revisions already applied (2026-08-21)
+
+Recorded here because they change what the site says, not just how it looks:
+
+- Every mention of **Olena Hrinchuk** removed, all three languages. ⚠️ Consequence still open:
+  **Тай-Чи PRO массаж now has no instructor line at all** — awaiting replacement wording from Ariel.
+- Founder figures updated to **16 countries** and **over 7000 students worldwide**.
+- The **«до Нового года»** gift-session offer removed outright.
+- **All Instagram references removed except one** — the Osteo-lifting reel, which he asked to keep.
+- New portrait of Ariel (clinic photograph) replacing the phone snapshot.
+- 18 new academy photographs added; the history gallery now runs to 32.
+
+**Market note that corrected an earlier assumption:** this site serves **Russia and the Balkans**, where
+landing pages face far fewer content restrictions than Western defaults assume. CLAUDE.md's rule on the
+health claims forbids putting them in a *title, heading or meta description* — it does not restrict which
+page an image appears on. Do not extend it beyond its letter.
+
+---
+
 ## Open questions for Ariel
 
 Not blockers for Steps 1–4, but needed before the build finishes:
@@ -179,10 +220,10 @@ Not blockers for Steps 1–4, but needed before the build finishes:
    current site, which is why its structured data is an empty shell. Without them, `LocalBusiness` schema
    gets omitted rather than shipped empty.
 2. ~~**Is the NIC.UA card valid?**~~ Resolved 2026-08-21: the domain has been renewed for two more years.
-3. **The health claims** — "−4 kg in one session", migraine relief, "completely change the structure of the
-   skull". A business/legal call, his to make. Carried forward verbatim unless he says otherwise
-   ([`discovery/04`](discovery/04-content-inventory.md) §2a).
-4. **Stale offer** — a "до Нового года" promotion is live in August. His copy, his call.
+3. **The health claims** — carried forward verbatim, and kept out of every title, heading and meta
+   description. Ariel is aware; the Russia/Balkans market makes this far less fraught than the audit
+   assumed ([`discovery/04`](discovery/04-content-inventory.md) §2a).
+4. ~~**Stale offer** — the "до Нового года" promotion.~~ Resolved 2026-08-21: removed at his request.
 5. Does a Google Business Profile exist?
 6. Privacy policy / terms text, if those pages should be populated.
 
