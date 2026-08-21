@@ -1,0 +1,201 @@
+---
+import Wordmark from './Wordmark.astro';
+import LangSwitcher from './LangSwitcher.astro';
+import { TELEGRAM } from '../config';
+import { localePath, useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  subpath?: string;
+}
+
+const { locale, subpath = '' } = Astro.props;
+const t = useTranslations(locale);
+const home = localePath(locale);
+
+const links = [
+  { label: t.nav.method, href: localePath(locale, 'method') },
+  { label: t.nav.courses, href: localePath(locale, 'courses') },
+  { label: t.nav.instructors, href: `${home}#instructors` },
+  { label: t.nav.history, href: localePath(locale, 'history') },
+  { label: t.nav.faq, href: `${home}#faq` },
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner container">
+    <Wordmark locale={locale} />
+
+    <nav class="site-nav" aria-label={t.nav.courses}>
+      <ul class="site-nav__list">
+        {
+          links.map((link) => (
+            <li>
+              <a class="site-nav__link" href={link.href}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <LangSwitcher locale={locale} subpath={subpath} />
+      <a class="btn btn--sm site-header__cta" href={TELEGRAM.ariel} target="_blank" rel="noopener">
+        {t.ui.signUp}
+      </a>
+    </div>
+
+    <details class="menu">
+      <summary class="menu__toggle" aria-label={t.ui.menu}>
+        <span class="menu__bars" aria-hidden="true"></span>
+      </summary>
+      <div class="menu__panel">
+        <ul class="menu__list">
+          {
+            links.map((link) => (
+              <li>
+                <a class="menu__link" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="menu__foot">
+          <LangSwitcher locale={locale} subpath={subpath} />
+          <a class="btn btn--sm" href={TELEGRAM.ariel} target="_blank" rel="noopener">
+            {t.ui.signUp}
+          </a>
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    min-height: var(--header-h);
+  }
+
+  .site-nav { display: none; }
+
+  .site-nav__list {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.2vw, 2rem);
+    list-style: none;
+  }
+
+  .site-nav__link {
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    transition: color 160ms ease;
+  }
+
+  .site-nav__link:hover { color: var(--accent-ink); }
+
+  .site-header__actions {
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* --- mobile menu (no JavaScript) ----------------------------------- */
+
+  .menu { position: relative; }
+
+  .menu__toggle {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-right: -0.5rem;
+    list-style: none;
+    cursor: pointer;
+    border-radius: var(--radius);
+  }
+
+  .menu__toggle::-webkit-details-marker { display: none; }
+
+  .menu__bars,
+  .menu__bars::before,
+  .menu__bars::after {
+    display: block;
+    width: 1.25rem;
+    height: 1.5px;
+    background: var(--ink);
+    transition: transform 200ms ease, opacity 160ms ease;
+  }
+
+  .menu__bars { position: relative; }
+
+  .menu__bars::before,
+  .menu__bars::after {
+    content: '';
+    position: absolute;
+    left: 0;
+  }
+
+  .menu__bars::before { top: -6px; }
+  .menu__bars::after { top: 6px; }
+
+  .menu[open] .menu__bars { background: transparent; }
+  .menu[open] .menu__bars::before { transform: translateY(6px) rotate(45deg); }
+  .menu[open] .menu__bars::after { transform: translateY(-6px) rotate(-45deg); }
+
+  .menu__panel {
+    position: absolute;
+    right: -0.5rem;
+    top: calc(100% + 0.5rem);
+    width: min(19rem, calc(100vw - 2rem));
+    padding: 1.25rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .menu__list { list-style: none; }
+
+  .menu__link {
+    display: block;
+    padding: 0.7rem 0;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .menu__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-top: 1.1rem;
+  }
+
+  @media (min-width: 62em) {
+    .site-nav,
+    .site-header__actions { display: flex; }
+    .menu { display: none; }
+  }
+</style>

@@ -1,0 +1,16 @@
+# secrets — never commit
+.env
+.env.*
+!.env.example
+
+# dependencies and build output
+node_modules/
+dist/
+.astro/
+.vercel/
+.output/
+
+# editor / OS
+.DS_Store
+Thumbs.db
+*.log

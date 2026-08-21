@@ -1,0 +1,55 @@
+---
+import { TELEGRAM, WHATSAPP } from '../config';
+import { useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  telegram?: string;
+  whatsapp?: string;
+}
+
+const { locale, telegram = TELEGRAM.ariel, whatsapp = WHATSAPP.ariel } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<div class="mobile-cta">
+  <a class="btn mobile-cta__primary" href={telegram} target="_blank" rel="noopener">
+    {t.ui.signUp}
+  </a>
+  <a
+    class="btn btn--secondary mobile-cta__secondary"
+    href={whatsapp}
+    target="_blank"
+    rel="noopener"
+  >
+    {t.ui.consultation}
+  </a>
+</div>
+
+<style>
+  .mobile-cta {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 45;
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.6rem var(--gutter) calc(0.6rem + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+  }
+
+  .mobile-cta .btn {
+    flex: 1;
+    padding-inline: 0.75rem;
+    font-size: 0.72rem;
+  }
+
+  .mobile-cta__secondary { background: var(--surface); }
+
+  @media (min-width: 62em) {
+    .mobile-cta { display: none; }
+  }
+</style>

@@ -1,0 +1,165 @@
+======================================================================
+PAGE: en.html  bytes= 470017
+ html lang  : en
+ title      : International Academy OSTEO-LIFTING
+ descr      : None
+ keywords   : 1984 chars
+ robots     : index, follow
+ canonical  : https://osteo-lifting.com/en
+ hreflang   : NONE
+ og:desc    : NONE | og:image: yes
+ h1 count   : 0
+ h2 count   : 3
+   h2: International Academy OSTEO-LIFTING
+   h2: OSTEO-LIFTING ACADEMY PRODUCTS
+   h2: F.A.Q
+ h3 count   : 0
+ JSON-LD    : 0
+ text words : 2113
+ imgs       : 14  without alt: 0
+======================================================================
+PAGE: history-en.html  bytes= 454619
+ html lang  : en
+ title      : History of OSTEO-LIFTING Academy
+ descr      : None
+ keywords   : 763 chars
+ robots     : index, follow
+ canonical  : https://osteo-lifting.com/history-en
+ hreflang   : NONE
+ og:desc    : NONE | og:image: NO
+ h1 count   : 0
+ h2 count   : 2
+   h2: History ofOSTEO-LIFTING Academy
+   h2: The main direction of the Academy became the methods of osteopathic and bioenergetic corre
+ h3 count   : 0
+ JSON-LD    : 0
+ text words : 176
+ imgs       : 68  without alt: 61
+======================================================================
+PAGE: history-ru.html  bytes= 454558
+ html lang  : en
+ title      : История Академии
+ descr      : None
+ keywords   : 791 chars
+ robots     : index, follow
+ canonical  : https://osteo-lifting.com/history-ru
+ hreflang   : NONE
+ og:desc    : NONE | og:image: NO
+ h1 count   : 0
+ h2 count   : 2
+   h2: История АкадемииOSTEO-LIFTING
+   h2: Главным направлением Академии стали методы остеопатической и биоэнергетической коррекции л
+ h3 count   : 0
+ JSON-LD    : 0
+ text words : 156
+ imgs       : 68  without alt: 61
+======================================================================
+PAGE: history-ua.html  bytes= 454360
+ html lang  : en
+ title      : Історія Академії
+ descr      : None
+ keywords   : 742 chars
+ robots     : index, follow
+ canonical  : https://osteo-lifting.com/history-ua
+ hreflang   : NONE
+ og:desc    : NONE | og:image: NO
+ h1 count   : 0
+ h2 count   : 2
+   h2: Історія АкадеміїOSTEO-LIFTING
+   h2: Головним напрямком Академії стали методи остеопатичної та біоенергетичної корекції обличчя
+ h3 count   : 0
+ JSON-LD    : 0
+ text words : 157
+ imgs       : 68  without alt: 61
+======================================================================
+PAGE: home.html  bytes= 460117
+ html lang  : en
+ title      : Международная Академия OSTEO-LIFTING
+ descr      : None
+ keywords   : 1979 chars
+ robots     : index, follow
+ canonical  : https://osteo-lifting.com/
+ hreflang   : NONE
+ og:desc    : NONE | og:image: yes
+ h1 count   : 0
+ h2 count   : 3
+   h2: Международная АкадемияOSTEO-LIFTING
+   h2: ПРОДУКТЫ АКАДЕМИИ OSTEO-LIFTING
+   h2: F.A.Q
+ h3 count   : 0
+ JSON-LD    : 2
+ text words : 1720
+ imgs       : 14  without alt: 0
+======================================================================
+PAGE: method-en.html  bytes= 301690
+ html lang  : en
+ title      : About the OSTEO-LIFTING method
+ descr      : None
+ keywords   : 930 chars
+ robots     : index, follow
+ canonical  : https://osteo-lifting.com/method-en
+ hreflang   : NONE
+ og:desc    : NONE | og:image: NO
+ h1 count   : 0
+ h2 count   : 2
+   h2: About the OSTEO-LIFTING method
+   h2: The osteo-lift consists of two blocks
+ h3 count   : 0
+ JSON-LD    : 0
+ text words : 211
+ imgs       : 7  without alt: 3
+======================================================================
+PAGE: method-ru.html  bytes= 301829
+ html lang  : en
+ title      : О методе Остеолифтинг
+ descr      : None
+ keywords   : 950 chars
+ robots     : index, follow
+ canonical  : https://osteo-lifting.com/method-ru
+ hreflang   : NONE
+ og:desc    : NONE | og:image: NO
+ h1 count   : 0
+ h2 count   : 2
+   h2: О методеOSTEO-LIFTING
+   h2: Остео-лифтинг состоит из двух блоков
+ h3 count   : 0
+ JSON-LD    : 0
+ text words : 196
+ imgs       : 7  without alt: 3
+======================================================================
+PAGE: method-ua.html  bytes= 301559
+ html lang  : en
+ title      : Про метод Остеоліфтінг
+ descr      : None
+ keywords   : 892 chars
+ robots     : index, follow
+ canonical  : https://osteo-lifting.com/method-ua
+ hreflang   : NONE
+ og:desc    : NONE | og:image: NO
+ h1 count   : 0
+ h2 count   : 2
+   h2: Про методOSTEO-LIFTING
+   h2: Остео-ліфтинг складається із двох блоків
+ h3 count   : 0
+ JSON-LD    : 0
+ text words : 194
+ imgs       : 7  without alt: 3
+======================================================================
+PAGE: ua.html  bytes= 472666
+ html lang  : en
+ title      : Международная Академия OSTEO-LIFTING
+ descr      : None
+ keywords   : 1902 chars
+ robots     : index, follow
+ canonical  : https://osteo-lifting.com/ua
+ hreflang   : NONE
+ og:desc    : NONE | og:image: yes
+ h1 count   : 0
+ h2 count   : 3
+   h2: Міжнародна АкадеміяOSTEO-LIFTING
+   h2: ПРОДУКТИ АКАДЕМІЇ OSTEO-LIFTING
+   h2: F.A.Q
+ h3 count   : 0
+ JSON-LD    : 0
+ text words : 1748
+ imgs       : 14  without alt: 0

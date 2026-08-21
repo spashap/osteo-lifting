@@ -1,0 +1,7 @@
+User-agent: *
+Sitemap: https://osteo-lifting.com/sitemap.xml
+Disallow: /.sw_/_host_/_replacer_
+# reserved
+
+
+[HTTP 200]

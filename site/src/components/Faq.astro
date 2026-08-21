@@ -1,0 +1,91 @@
+---
+import { useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section class="section section--tint" id="faq">
+  <div class="container container--narrow">
+    <div class="section-head">
+      <h2 class="h2">{t.faq.title}</h2>
+      <hr class="rule" />
+    </div>
+
+    <div class="faq">
+      {
+        t.faq.items.map((item) => (
+          <details class="faq__item">
+            <summary class="faq__q">
+              <span>{item.q}</span>
+              <span class="faq__icon" aria-hidden="true" />
+            </summary>
+            <div class="faq__a">
+              <p>{item.a}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq { border-top: 1px solid var(--line-strong); }
+
+  .faq__item { border-bottom: 1px solid var(--line-strong); }
+
+  .faq__q {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: clamp(1rem, 2.5vw, 1.4rem);
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .faq__q::-webkit-details-marker { display: none; }
+  .faq__q:hover { color: var(--accent-ink); }
+
+  .faq__icon {
+    position: relative;
+    flex: none;
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.35em;
+  }
+
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    background: var(--accent-ink);
+  }
+
+  .faq__icon::before { width: 100%; height: 1.5px; }
+  .faq__icon::after {
+    width: 1.5px;
+    height: 100%;
+    transition: transform 200ms ease;
+  }
+
+  .faq__item[open] .faq__icon::after { transform: scaleY(0); }
+
+  .faq__a {
+    padding-bottom: clamp(1rem, 2.5vw, 1.4rem);
+    max-width: var(--measure);
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+</style>

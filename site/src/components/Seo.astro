@@ -1,0 +1,67 @@
+---
+import { SITE_URL, OG_IMAGE, GA4_ID } from '../config';
+import { LANG_TAG, LOCALES, OG_LOCALE, DEFAULT_LOCALE, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  /** Locale-relative path without the language prefix, e.g. "courses/osteo-body". */
+  subpath?: string;
+  type?: 'website' | 'article';
+}
+
+const { locale, title, description, subpath = '', type = 'website' } = Astro.props;
+
+const clean = subpath.replace(/^\/+|\/+$/g, '');
+const pathFor = (l: Locale) => (clean ? `/${l}/${clean}/` : `/${l}/`);
+const canonical = new URL(pathFor(locale), SITE_URL).href;
+const ogImage = new URL(OG_IMAGE, SITE_URL).href;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+{/* Reciprocal hreflang cluster. Ukrainian is `uk` — `ua` is not a valid language tag. */}
+{
+  LOCALES.map((l) => (
+    <link rel="alternate" hreflang={LANG_TAG[l]} href={new URL(pathFor(l), SITE_URL).href} />
+  ))
+}
+<link rel="alternate" hreflang="x-default" href={new URL(pathFor(DEFAULT_LOCALE), SITE_URL).href} />
+
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content="OSTEO-LIFTING" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={title} />
+<meta property="og:locale" content={OG_LOCALE[locale]} />
+{
+  LOCALES.filter((l) => l !== locale).map((l) => (
+    <meta property="og:locale:alternate" content={OG_LOCALE[l]} />
+  ))
+}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{
+  GA4_ID && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />
+      <script is:inline define:vars={{ GA4_ID }}>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', GA4_ID);
+      </script>
+    </>
+  )
+}

@@ -1,0 +1,19 @@
+source,destination,status,type,note
+/,/ru/,301,exact,"Root redirects to default locale. Alternative: serve RU at root and skip this rule."
+/index.html,/ru/,301,exact,"Currently returns 200 with a byte-identical copy of / ; canonical already points to /"
+/history-ru,/ru/history/,301,exact,Current live URL
+/method-ru,/ru/method/,301,exact,Current live URL
+/ua,/ua/,301,exact,Current live URL — UK home
+/history-ua,/ua/history/,301,exact,Current live URL
+/method-ua,/ua/method/,301,exact,Current live URL
+/en,/en/,301,exact,Current live URL — EN home
+/history-en,/en/history/,301,exact,Current live URL
+/method-en,/en/method/,301,exact,Current live URL
+/ru,/ru/,301,exact,"LEGACY — linked from YouTube channel 'ARIEL PELEVIN LIVE' and VK club6278059; currently 404"
+/ru/founder-and-creator/,/ru/,301,exact,"LEGACY — confirmed in Google's index via site: query; currently 404. Retarget to an About page if one is created"
+/ru/*,/ru/,301,fallback,"LEGACY catch-all — MUST be evaluated LAST, after all real /ru/ pages match, otherwise it swallows /ru/method/ etc. Implement as a locale-scoped 404 handler, not a blanket prefix rule. Covers all pre-2023 RU slugs without needing the full historical list (Internet Archive CDX returned 429 on every attempt)"
+/en/*,/en/,301,fallback,"LEGACY catch-all for the old EN structure — same ordering caveat as /ru/*"
+/ua/*,/ua/,301,fallback,"LEGACY catch-all for the old UA structure — same ordering caveat as /ru/*"
+/*/,/*,301,rule,"Trailing-slash normalisation — currently served as 302, must be 301"
+http://*,https://*,301,rule,Already correct today — preserve
+https://www.*,https://osteo-lifting.com/*,301,rule,Already correct today — preserve

@@ -1,0 +1,232 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CourseGrid from '../../../components/CourseGrid.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+
+import { LOCALES, localePath, useTranslations, type Locale } from '../../../i18n';
+import { graph, organization, course, breadcrumbs, personAriel, personOlena } from '../../../lib/schema';
+
+export function getStaticPaths() {
+  return LOCALES.flatMap((lang) =>
+    useTranslations(lang).courses.map((item) => ({
+      params: { lang, slug: item.slug },
+    })),
+  );
+}
+
+const lang = Astro.params.lang as Locale;
+const slug = Astro.params.slug!;
+const t = useTranslations(lang);
+const item = t.courses.find((c) => c.slug === slug)!;
+
+const trail = [
+  { name: t.ui.breadcrumbHome, path: localePath(lang) },
+  { name: t.coursesSection.titlePlain, path: localePath(lang, 'courses') },
+  { name: item.title, path: localePath(lang, `courses/${slug}`) },
+];
+
+const schema = graph([
+  organization(lang),
+  personAriel(lang),
+  personOlena(lang),
+  course(lang, slug),
+  breadcrumbs(lang, trail),
+]);
+
+const primary = item.ctas[0];
+const secondary = item.ctas[1];
+---
+
+<Base
+  locale={lang}
+  title={`${item.title} — ${t.seo.courseSuffix}`}
+  description={item.metaDescription}
+  subpath={`courses/${slug}`}
+  schema={schema}
+  telegram={primary.href}
+  whatsapp={secondary?.href ?? primary.href}
+>
+  <Breadcrumbs trail={trail} />
+  <PageHero
+    eyebrow={t.nav.courses}
+    titleBrand={item.title}
+    meta={[item.format, ...item.teachers]}
+    lede={item.lead}
+  />
+
+  <section class="section">
+    <div class="container course__layout">
+      <div class="course__content">
+        {
+          item.paragraphs && (
+            <div class="prose course__prose">
+              {item.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+          )
+        }
+
+        {
+          item.sections?.map((section) => (
+            <section class="syllabus reveal">
+              {section.heading && <h2 class="h3 syllabus__title">{section.heading}</h2>}
+              {section.intro && <p class="syllabus__intro">{section.intro}</p>}
+              {section.items && (
+                <ul class="syllabus__list">
+                  {section.items.map((line) => (
+                    <li>{line}</li>
+                  ))}
+                </ul>
+              )}
+              {section.note && <p class="syllabus__note">{section.note}</p>}
+            </section>
+          ))
+        }
+
+        {item.footnote && <p class="course__footnote">{item.footnote}</p>}
+      </div>
+
+      <aside class="course__aside">
+        <div class="booking">
+          <p class="booking__format">{item.format}</p>
+          <ul class="booking__teachers">
+            {item.teachers.map((line) => <li>{line}</li>)}
+          </ul>
+          <div class="booking__actions">
+            {
+              item.ctas.map((cta, i) => (
+                <a
+                  class:list={['btn', i > 0 && 'btn--secondary']}
+                  href={cta.href}
+                  target="_blank"
+                  rel="noopener"
+                >
+                  {cta.label}
+                </a>
+              ))
+            }
+          </div>
+          <a class="link booking__all" href={localePath(lang, 'courses')}>{t.ui.allCourses}</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CourseGrid
+    locale={lang}
+    exclude={slug}
+    tint
+    showEyebrow={false}
+    heading={t.coursesSection.titlePlain}
+  />
+  <CtaBand locale={lang} />
+</Base>
+
+<style>
+  .course__layout {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  .course__content {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2rem, 4vw, 3rem);
+  }
+
+  .course__prose p:first-child {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.3;
+    color: var(--ink);
+  }
+
+  .syllabus {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .syllabus__title { color: var(--ink); }
+
+  .syllabus__intro { color: var(--ink); font-weight: 500; }
+
+  .syllabus__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    max-width: var(--measure);
+  }
+
+  .syllabus__list li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+  }
+
+  .syllabus__list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.78em;
+    width: 0.75rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .syllabus__note,
+  .course__footnote {
+    max-width: var(--measure);
+    padding-left: 1rem;
+    border-left: 2px solid var(--line-strong);
+    color: var(--ink-muted);
+    font-size: var(--step--1);
+    line-height: 1.6;
+  }
+
+  .booking {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: clamp(1.5rem, 3.5vw, 2rem);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .booking__format {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  .booking__teachers {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  .booking__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.25rem;
+  }
+
+  .booking__all { font-size: var(--step--1); }
+
+  @media (min-width: 62em) {
+    .course__layout { grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr); }
+    .course__aside { position: sticky; top: calc(var(--header-h) + 1.5rem); }
+  }
+</style>

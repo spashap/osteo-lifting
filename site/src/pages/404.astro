@@ -1,0 +1,71 @@
+---
+import '@fontsource-variable/inter/wght.css';
+import '@fontsource-variable/cormorant-garamond/wght.css';
+import '../styles/global.css';
+
+import { LOCALES, LANG_TAG, useTranslations } from '../i18n';
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="color-scheme" content="light only" />
+    <meta name="theme-color" content="#211b18" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>404 — OSTEO-LIFTING</title>
+  </head>
+  <body>
+    <main class="notfound">
+      <div class="container container--narrow notfound__inner">
+        <h1 class="eyebrow">404</h1>
+        {
+          LOCALES.map((locale) => {
+            const t = useTranslations(locale);
+            return (
+              <section class="notfound__block" lang={LANG_TAG[locale]}>
+                <h2 class="h3">{t.ui.notFoundTitle}</h2>
+                <p class="notfound__text">{t.ui.notFoundText}</p>
+                <a class="btn btn--secondary btn--sm" href={`/${locale}/`}>
+                  {t.ui.toHome}
+                </a>
+              </section>
+            );
+          })
+        }
+      </div>
+    </main>
+
+    <style>
+      .notfound {
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding-block: var(--section-y);
+      }
+
+      .notfound__inner {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+      }
+
+      .notfound__block {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .notfound__text {
+        color: var(--ink-soft);
+        max-width: var(--measure);
+      }
+    </style>
+  </body>
+</html>

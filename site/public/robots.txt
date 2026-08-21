@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://osteo-lifting.com/sitemap-index.xml

@@ -1,0 +1,51 @@
+---
+interface Props {
+  trail: Array<{ name: string; path: string }>;
+}
+
+const { trail } = Astro.props;
+const last = trail.length - 1;
+---
+
+<nav class="crumbs container" aria-label="Breadcrumb">
+  <ol class="crumbs__list">
+    {
+      trail.map((crumb, i) => (
+        <li class="crumbs__item">
+          {i === last ? (
+            <span aria-current="page">{crumb.name}</span>
+          ) : (
+            <a href={crumb.path}>{crumb.name}</a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .crumbs { padding-top: 1.5rem; }
+
+  .crumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    font-size: 0.74rem;
+    letter-spacing: 0.06em;
+    color: var(--ink-muted);
+  }
+
+  .crumbs__item + .crumbs__item::before {
+    content: '/';
+    margin-right: 0.5rem;
+    color: var(--line-strong);
+  }
+
+  .crumbs__item a {
+    color: var(--ink-muted);
+    text-decoration: none;
+  }
+
+  .crumbs__item a:hover { color: var(--accent-ink); }
+</style>

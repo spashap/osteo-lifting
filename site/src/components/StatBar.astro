@@ -1,0 +1,78 @@
+---
+import { useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section class="stats" aria-label={t.founder.nameNatural}>
+  <div class="container stats__inner">
+    {
+      t.founder.stats.map((stat) => (
+        <div class="stats__item reveal">
+          <p class="stats__prefix">{stat.prefix}</p>
+          <p class="stats__value">{stat.value}</p>
+          <p class="stats__label">{stat.label}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .stats {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .stats__inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    padding-block: clamp(2rem, 4vw, 3rem);
+    text-align: center;
+  }
+
+  .stats__item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    position: relative;
+  }
+
+  .stats__item + .stats__item::before {
+    content: '';
+    position: absolute;
+    left: calc(-1 * clamp(0.5rem, 1.5vw, 1.25rem));
+    top: 15%;
+    bottom: 15%;
+    width: 1px;
+    background: var(--line);
+  }
+
+  .stats__prefix {
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .stats__value {
+    font-family: var(--font-display);
+    font-size: var(--step-4);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--contrast);
+    font-variant-numeric: lining-nums;
+    font-feature-settings: 'lnum' 1;
+  }
+
+  .stats__label {
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+</style>

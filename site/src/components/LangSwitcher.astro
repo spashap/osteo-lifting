@@ -1,0 +1,78 @@
+---
+import { LANG_TAG, LOCALES, useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  subpath?: string;
+  onDark?: boolean;
+}
+
+const { locale, subpath = '', onDark = false } = Astro.props;
+const t = useTranslations(locale);
+const clean = subpath.replace(/^\/+|\/+$/g, '');
+const href = (l: Locale) => (clean ? `/${l}/${clean}/` : `/${l}/`);
+---
+
+<nav class:list={['langs', onDark && 'langs--dark']} aria-label={t.ui.language}>
+  {
+    LOCALES.map((l) => (
+      <a
+        href={href(l)}
+        hreflang={LANG_TAG[l]}
+        lang={LANG_TAG[l]}
+        class:list={['langs__item', l === locale && 'is-current']}
+        aria-current={l === locale ? 'true' : undefined}
+      >
+        {useTranslations(l).label}
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .langs {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+    padding: 2px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: var(--surface);
+  }
+
+  .langs--dark {
+    border-color: rgba(244, 239, 233, 0.25);
+    background: transparent;
+  }
+
+  .langs__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.25rem;
+    height: 1.85rem;
+    padding-inline: 0.4rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: var(--ink-muted);
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  .langs--dark .langs__item { color: var(--on-contrast-soft); }
+
+  .langs__item:hover { color: var(--ink); }
+  .langs--dark .langs__item:hover { color: var(--on-contrast); }
+
+  .langs__item.is-current {
+    background: var(--contrast);
+    color: var(--on-contrast);
+  }
+
+  .langs--dark .langs__item.is-current {
+    background: var(--on-contrast);
+    color: var(--contrast);
+  }
+</style>

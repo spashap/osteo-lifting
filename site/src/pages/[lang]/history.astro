@@ -1,0 +1,219 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+import { img, galleryKeys, socialReviewKeys } from '../../data/images';
+import { PHONE } from '../../config';
+import { LOCALES, localePath, useTranslations, type Locale } from '../../i18n';
+import { graph, organization, breadcrumbs } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+
+const trail = [
+  { name: t.ui.breadcrumbHome, path: localePath(lang) },
+  { name: t.history.titlePlain, path: localePath(lang, 'history') },
+];
+
+const schema = graph([organization(lang), breadcrumbs(lang, trail)]);
+---
+
+<Base
+  locale={lang}
+  title={t.seo.historyTitle}
+  description={t.history.metaDescription}
+  subpath="history"
+  schema={schema}
+>
+  <Breadcrumbs trail={trail} />
+  <PageHero
+    eyebrow={t.brand.mark}
+    titleTop={t.history.titleTop}
+    titleBrand={t.history.titleBrand}
+  />
+
+  <section class="section">
+    <div class="container timeline__wrap">
+      <ol class="timeline">
+        {
+          t.history.timeline.map((entry) => (
+            <li class="timeline__item reveal">
+              <span class="timeline__year">{entry.year}</span>
+              <p class="timeline__text" set:html={entry.html} />
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="prose history__prose">
+        {t.history.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2">{t.history.galleryTitle}</h2>
+        <hr class="rule" />
+      </div>
+      <ul class="gallery">
+        {
+          galleryKeys.map((key, i) => (
+            <li class:list={['gallery__item', i % 5 === 0 && 'gallery__item--wide']}>
+              <figure class="figure gallery__figure">
+                <Picture
+                  src={img(key)}
+                  formats={['avif', 'webp']}
+                  widths={[320, 560, 900]}
+                  sizes="(min-width: 62em) 30vw, 46vw"
+                  alt={t.alt[key as keyof typeof t.alt]}
+                  loading="lazy"
+                />
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2">{t.history.socialReviewsTitle}</h2>
+        <hr class="rule" />
+      </div>
+      <ul class="social">
+        {
+          socialReviewKeys.map((key) => (
+            <li class="social__item reveal">
+              <figure class="figure figure--plain ratio-square">
+                <Picture
+                  src={img(key)}
+                  formats={['avif', 'webp']}
+                  widths={[400, 700, 1000]}
+                  sizes="(min-width: 62em) 30vw, 88vw"
+                  alt={t.alt[key as keyof typeof t.alt]}
+                  loading="lazy"
+                />
+              </figure>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container container--narrow contact">
+      <p class="contact__line">{t.history.contactLine}</p>
+      <a class="contact__phone" href={`tel:${PHONE}`}>{PHONE}</a>
+      <p>
+        <a class="link" href={localePath(lang)}>{t.ui.toHome}</a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand locale={lang} />
+</Base>
+
+<style>
+  .timeline__wrap {
+    display: grid;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+
+  .timeline {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline__item {
+    display: grid;
+    grid-template-columns: minmax(4.5rem, 7rem) 1fr;
+    gap: 1.25rem;
+    padding-block: clamp(1.1rem, 2.5vw, 1.6rem);
+    border-top: 1px solid var(--line);
+  }
+
+  .timeline__item:last-child { border-bottom: 1px solid var(--line); }
+
+  .timeline__year {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.1;
+    color: var(--accent-ink);
+  }
+
+  .timeline__text { color: var(--ink-soft); line-height: 1.55; }
+  .timeline__text :global(strong) { color: var(--ink); font-weight: 600; }
+
+  .gallery {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .gallery__figure {
+    margin: 0;
+    aspect-ratio: 3 / 4;
+  }
+
+  .social {
+    list-style: none;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .social__item figure { margin: 0; }
+
+  .contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .contact__line {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.25;
+    max-width: 30ch;
+  }
+
+  .contact__phone {
+    font-family: var(--font-display);
+    font-size: var(--step-3);
+    text-decoration: none;
+    color: var(--accent-ink);
+    border-bottom: 1px solid var(--line-strong);
+  }
+
+  .contact__phone:hover { border-color: currentColor; }
+
+  @media (min-width: 48em) {
+    .gallery { grid-template-columns: repeat(3, 1fr); }
+    .gallery__item--wide { grid-column: span 2; }
+    .gallery__item--wide .gallery__figure { aspect-ratio: 3 / 2; }
+    .social { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 62em) {
+    .timeline__wrap { grid-template-columns: 1fr 1fr; }
+    .gallery { grid-template-columns: repeat(4, 1fr); }
+    .social { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>

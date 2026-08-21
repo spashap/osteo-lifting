@@ -1,0 +1,119 @@
+---
+import { Picture } from 'astro:assets';
+import { img } from '../data/images';
+import { localePath, useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+const sculpture = img('hero-sculpture');
+---
+
+<section class="hero">
+  <div class="container hero__inner">
+    <div class="hero__text">
+      <p class="eyebrow">{t.brand.mark}</p>
+      <h1 class="hero__title">
+        <span class="hero__titleTop">{t.hero.titleTop}</span>
+        <span class="hero__titleBrand">{t.hero.titleBrand}</span>
+      </h1>
+      <div class="hero__actions">
+        <a class="btn btn--onDark" href={localePath(locale, 'method')}>{t.hero.ctaMethod}</a>
+        <a class="btn btn--ghostOnDark" href={localePath(locale, 'history')}>
+          {t.hero.ctaHistory}
+        </a>
+      </div>
+    </div>
+
+    <figure class="hero__figure figure">
+      <Picture
+        src={sculpture}
+        formats={['avif', 'webp']}
+        widths={[420, 640, 880]}
+        sizes="(min-width: 62em) 34vw, 76vw"
+        alt={t.alt['hero-sculpture']}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </figure>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    background: var(--contrast);
+    color: var(--on-contrast);
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      120% 90% at 78% 15%,
+      rgba(176, 141, 122, 0.28),
+      transparent 62%
+    );
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    position: relative;
+    display: grid;
+    gap: clamp(2.5rem, 6vw, 4rem);
+    align-items: center;
+    padding-block: clamp(3rem, 9vw, 6.5rem);
+  }
+
+  .hero__text {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    align-items: flex-start;
+  }
+
+  .hero__title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+    margin: 0;
+  }
+
+  .hero__titleTop {
+    font-size: var(--step-3);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--on-contrast-soft);
+    letter-spacing: 0;
+  }
+
+  .hero__titleBrand {
+    font-size: clamp(2.4rem, 6vw, 4.75rem);
+    font-weight: 500;
+    letter-spacing: 0.005em;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero__figure {
+    max-width: 26rem;
+    margin: 0;
+    justify-self: center;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  @media (min-width: 62em) {
+    .hero__inner { grid-template-columns: 1.15fr 0.85fr; }
+    .hero__figure { justify-self: end; max-width: 30rem; }
+  }
+</style>

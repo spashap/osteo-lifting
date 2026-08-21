@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+    
+  <url>
+    <loc>https://osteo-lifting.com/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1</priority>
+    <lastmod>2025-10-01T06:45:50+00:00</lastmod>
+    
+  </url>
+
+  <url>
+    <loc>https://osteo-lifting.com/history-ru</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-10-01T06:45:50+00:00</lastmod>
+    
+  </url>
+
+  <url>
+    <loc>https://osteo-lifting.com/method-ru</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-10-01T06:45:50+00:00</lastmod>
+    
+  </url>
+
+  <url>
+    <loc>https://osteo-lifting.com/ua</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-10-01T06:45:50+00:00</lastmod>
+    
+  </url>
+
+  <url>
+    <loc>https://osteo-lifting.com/history-ua</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-10-01T06:45:50+00:00</lastmod>
+    
+  </url>
+
+  <url>
+    <loc>https://osteo-lifting.com/method-ua</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-10-01T06:45:50+00:00</lastmod>
+    
+  </url>
+
+  <url>
+    <loc>https://osteo-lifting.com/en</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-10-01T06:45:50+00:00</lastmod>
+    
+  </url>
+
+  <url>
+    <loc>https://osteo-lifting.com/history-en</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-10-01T06:45:50+00:00</lastmod>
+    
+  </url>
+
+  <url>
+    <loc>https://osteo-lifting.com/method-en</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2025-10-01T06:45:50+00:00</lastmod>
+    
+  </url>
+  </urlset>

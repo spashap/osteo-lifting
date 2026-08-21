@@ -1,0 +1,212 @@
+---
+import { Picture } from 'astro:assets';
+import { img } from '../data/images';
+import { SOCIAL, TELEGRAM, WHATSAPP } from '../config';
+import { useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+
+const people = [
+  {
+    image: img('ariel-pelevin'),
+    alt: t.alt['ariel-pelevin'],
+    eyebrow: t.founder.eyebrow,
+    prefix: t.founder.prefix,
+    name: t.founder.name,
+    bullets: t.founder.bullets,
+    links: [
+      { label: 'Instagram', href: SOCIAL.arielInstagram },
+      { label: 'Facebook', href: SOCIAL.arielFacebook },
+      { label: 'WhatsApp', href: WHATSAPP.ariel },
+      { label: 'Telegram', href: TELEGRAM.ariel },
+    ],
+    extra: null as null | { label: string; name: string; href: string },
+  },
+  {
+    image: img('olena-hrinchuk'),
+    alt: t.alt['olena-hrinchuk'],
+    eyebrow: t.director.eyebrow,
+    prefix: t.director.prefix,
+    name: t.director.name,
+    bullets: t.director.bullets,
+    links: [
+      { label: 'Instagram', href: SOCIAL.olenaInstagram },
+      { label: 'WhatsApp', href: WHATSAPP.olena },
+      { label: 'Telegram', href: TELEGRAM.olena },
+    ],
+    extra: {
+      label: t.director.founderOf,
+      name: t.director.spaName,
+      href: SOCIAL.spaInstagram,
+    },
+  },
+];
+---
+
+<section class="section" id="instructors">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{t.nav.instructors}</p>
+      <hr class="rule" />
+    </div>
+
+    <div class="people">
+      {
+        people.map((person) => (
+          <article class="person reveal">
+            <figure class="person__figure figure ratio-square">
+              <Picture
+                src={person.image}
+                formats={['avif', 'webp']}
+                widths={[360, 560, 760]}
+                sizes="(min-width: 62em) 30vw, 88vw"
+                alt={person.alt}
+                loading="lazy"
+              />
+            </figure>
+            <div class="person__body">
+              <p class="person__eyebrow">{person.eyebrow}</p>
+              <p class="person__prefix">{person.prefix}</p>
+              <h3 class="person__name h3">{person.name}</h3>
+              <ul class="person__bullets">
+                {person.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+              {person.extra && (
+                <p class="person__extra">
+                  {person.extra.label}{' '}
+                  <a class="link" href={person.extra.href} target="_blank" rel="noopener">
+                    {person.extra.name}
+                  </a>
+                </p>
+              )}
+              <ul class="person__links">
+                {person.links.map((link) => (
+                  <li>
+                    <a href={link.href} target="_blank" rel="noopener">
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .people {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .person {
+    display: grid;
+    gap: clamp(1.25rem, 3vw, 2rem);
+    align-items: start;
+  }
+
+  .person__figure {
+    margin: 0;
+    max-width: 22rem;
+  }
+
+  .person__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .person__eyebrow {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  .person__prefix {
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .person__name { margin-top: 0.15rem; }
+
+  .person__bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+    color: var(--ink-soft);
+    font-size: var(--step--1);
+    line-height: 1.6;
+  }
+
+  .person__bullets li {
+    position: relative;
+    padding-left: 1.1rem;
+  }
+
+  .person__bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .person__extra {
+    margin-top: 0.35rem;
+    font-size: var(--step--1);
+    color: var(--ink-soft);
+  }
+
+  .person__links {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+
+  .person__links a {
+    display: inline-flex;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--ink-soft);
+    transition: border-color 160ms ease, color 160ms ease;
+  }
+
+  .person__links a:hover {
+    border-color: var(--accent);
+    color: var(--accent-ink);
+  }
+
+  @media (min-width: 48em) {
+    .person { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+  }
+
+  @media (min-width: 62em) {
+    .people { grid-template-columns: repeat(2, 1fr); }
+    .person { grid-template-columns: 1fr; }
+    .person__figure { max-width: none; }
+  }
+</style>

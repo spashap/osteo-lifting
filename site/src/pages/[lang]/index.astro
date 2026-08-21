@@ -1,0 +1,56 @@
+---
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import StatBar from '../../components/StatBar.astro';
+import Instructors from '../../components/Instructors.astro';
+import ForWhom from '../../components/ForWhom.astro';
+import Benefits from '../../components/Benefits.astro';
+import CourseGrid from '../../components/CourseGrid.astro';
+import Videos from '../../components/Videos.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+import { LOCALES, useTranslations, type Locale } from '../../i18n';
+import {
+  graph,
+  website,
+  organization,
+  personAriel,
+  personOlena,
+  faqPage,
+} from '../../lib/schema';
+
+export function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+
+const schema = graph([
+  website(lang),
+  organization(lang),
+  personAriel(lang),
+  personOlena(lang),
+  faqPage(lang),
+]);
+---
+
+<Base
+  locale={lang}
+  title={t.seo.homeTitle}
+  description={t.seo.homeDescription}
+  schema={schema}
+>
+  <Hero locale={lang} />
+  <StatBar locale={lang} />
+  <Instructors locale={lang} />
+  <ForWhom locale={lang} />
+  <Benefits locale={lang} />
+  <CourseGrid locale={lang} tint showEyebrow={false} heading={t.coursesSection.titlePlain} />
+  <Videos locale={lang} />
+  <Testimonials locale={lang} />
+  <Faq locale={lang} />
+  <CtaBand locale={lang} />
+</Base>

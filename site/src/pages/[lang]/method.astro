@@ -1,0 +1,174 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CourseGrid from '../../components/CourseGrid.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+import { img, resultKeys } from '../../data/images';
+import { LOCALES, localePath, useTranslations, type Locale } from '../../i18n';
+import { graph, organization, breadcrumbs } from '../../lib/schema';
+
+export function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Locale;
+const t = useTranslations(lang);
+
+const trail = [
+  { name: t.ui.breadcrumbHome, path: localePath(lang) },
+  { name: t.method.titlePlain, path: localePath(lang, 'method') },
+];
+
+const schema = graph([organization(lang), breadcrumbs(lang, trail)]);
+---
+
+<Base
+  locale={lang}
+  title={t.seo.methodTitle}
+  description={t.method.metaDescription}
+  subpath="method"
+  schema={schema}
+>
+  <Breadcrumbs trail={trail} />
+  <PageHero
+    eyebrow={t.brand.mark}
+    titleTop={t.method.titleTop}
+    titleBrand={t.method.titleBrand}
+  />
+
+  <section class="section">
+    <div class="container method__intro">
+      <div class="prose method__prose">
+        {t.method.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
+      </div>
+      <figure class="figure ratio-portrait method__figure">
+        <Picture
+          src={img('academy-04')}
+          formats={['avif', 'webp']}
+          widths={[420, 640, 880]}
+          sizes="(min-width: 62em) 34vw, 88vw"
+          alt={t.alt['academy-04']}
+          loading="eager"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2">{t.method.blocksTitle}</h2>
+        <hr class="rule" />
+      </div>
+      <div class="blocks">
+        {
+          t.method.blocks.map((block) => (
+            <article class="block reveal">
+              <img
+                class="block__icon"
+                src={`/icons/icon-${block.icon}.svg`}
+                width="48"
+                height="64"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <h3 class="h3">{block.title}</h3>
+              <p class="block__text" set:html={block.html} />
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2 class="h2">{t.method.resultsTitle}</h2>
+        <hr class="rule" />
+      </div>
+      <div class="results">
+        {
+          resultKeys.map((key) => (
+            <figure class="figure ratio-story results__item reveal">
+              <Picture
+                src={img(key)}
+                formats={['avif', 'webp']}
+                widths={[360, 560, 732]}
+                sizes="(min-width: 62em) 30vw, 88vw"
+                alt={t.alt[key as keyof typeof t.alt]}
+                loading="lazy"
+              />
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CourseGrid locale={lang} tint showEyebrow={false} heading={t.coursesSection.titlePlain} />
+  <CtaBand locale={lang} />
+</Base>
+
+<style>
+  .method__intro {
+    display: grid;
+    gap: clamp(2rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+
+  .method__prose p:first-child {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .method__figure { margin: 0; }
+
+  .blocks {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: clamp(1.5rem, 3.5vw, 2.25rem);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+  }
+
+  .block__icon {
+    width: 2.25rem;
+    height: 3rem;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .block__text { color: var(--ink-soft); line-height: 1.65; }
+  .block__text :global(strong) { color: var(--ink); font-weight: 600; }
+
+  .results {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .results__item { margin: 0; }
+
+  @media (min-width: 48em) {
+    .blocks { grid-template-columns: repeat(2, 1fr); }
+    .results { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 62em) {
+    .method__intro { grid-template-columns: 1.15fr 0.85fr; }
+  }
+</style>

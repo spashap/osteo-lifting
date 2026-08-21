@@ -1,0 +1,70 @@
+---
+import { useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useTranslations(locale);
+---
+
+<section class="section" id="benefits">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="h2">{t.benefits.title}</h2>
+      <hr class="rule" />
+    </div>
+
+    <ul class="benefits">
+      {
+        t.benefits.items.map((item, i) => (
+          <li class="benefits__item reveal">
+            <span class="benefits__num">{String(i + 1).padStart(2, '0')}</span>
+            <p class="benefits__text" set:html={item} />
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .benefits { list-style: none; }
+
+  .benefits__item {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 1rem;
+    align-items: baseline;
+    padding-block: clamp(1.1rem, 2.5vw, 1.6rem);
+    border-bottom: 1px solid var(--line);
+    break-inside: avoid;
+  }
+
+  .benefits__item:first-child { border-top: 1px solid var(--line); }
+
+  .benefits__num {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    color: var(--accent);
+  }
+
+  .benefits__text {
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  .benefits__text :global(strong) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  @media (min-width: 62em) {
+    .benefits {
+      columns: 2;
+      column-gap: clamp(2.5rem, 5vw, 4.5rem);
+    }
+    .benefits__item:nth-child(6) { border-top: 1px solid var(--line); }
+  }
+</style>

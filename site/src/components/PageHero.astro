@@ -1,0 +1,66 @@
+---
+interface Props {
+  eyebrow?: string;
+  titleTop?: string;
+  titleBrand: string;
+  lede?: string;
+  meta?: string[];
+}
+
+const { eyebrow, titleTop, titleBrand, lede, meta = [] } = Astro.props;
+---
+
+<section class="pageHero">
+  <div class="container pageHero__inner">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1 class="pageHero__title">
+      {titleTop && <span class="pageHero__top">{titleTop}</span>}
+      <span class="pageHero__brand">{titleBrand}</span>
+    </h1>
+    {meta.length > 0 && (
+      <p class="pageHero__meta">{meta.join(' · ')}</p>
+    )}
+    {lede && <p class="lede pageHero__lede">{lede}</p>}
+    <hr class="rule" />
+  </div>
+</section>
+
+<style>
+  .pageHero {
+    background: var(--bg-tint);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .pageHero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-block: clamp(2.5rem, 7vw, 5rem);
+  }
+
+  .pageHero__title {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+    margin: 0;
+  }
+
+  .pageHero__top {
+    font-size: var(--step-2);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--ink-muted);
+  }
+
+  .pageHero__brand { font-size: var(--step-4); }
+
+  .pageHero__meta {
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+
+  .pageHero__lede { margin-top: 0.25rem; }
+</style>

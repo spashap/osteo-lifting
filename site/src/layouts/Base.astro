@@ -1,0 +1,93 @@
+---
+import '@fontsource-variable/inter/wght.css';
+import '@fontsource-variable/cormorant-garamond/wght.css';
+import '../styles/global.css';
+
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCta from '../components/MobileCta.astro';
+import { GA4_ID } from '../config';
+import { LANG_TAG, useTranslations, type Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  /** Locale-relative path, e.g. "courses/osteo-body". Empty for the home page. */
+  subpath?: string;
+  /** Ready-made JSON-LD string (see lib/schema.ts). */
+  schema?: string;
+  telegram?: string;
+  whatsapp?: string;
+}
+
+const {
+  locale,
+  title,
+  description,
+  subpath = '',
+  schema,
+  telegram,
+  whatsapp,
+} = Astro.props;
+
+const t = useTranslations(locale);
+---
+
+<!doctype html>
+<html lang={LANG_TAG[locale]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light only" />
+    <meta name="theme-color" content="#211b18" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <Seo locale={locale} title={title} description={description} subpath={subpath} />
+    {schema && <script type="application/ld+json" is:inline set:html={schema} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.ui.skipToContent}</a>
+    <Header locale={locale} subpath={subpath} />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer locale={locale} subpath={subpath} />
+    <MobileCta locale={locale} telegram={telegram} whatsapp={whatsapp} />
+
+    {
+      GA4_ID && (
+        <script is:inline>
+          document.addEventListener('click', (event) => {
+            const link = event.target instanceof Element && event.target.closest('a[href]');
+            if (!link || typeof window.gtag !== 'function') return;
+            const href = link.getAttribute('href') || '';
+            if (!/^https?:/i.test(href) || href.includes(location.host)) return;
+            let channel = 'other';
+            if (href.includes('t.me')) channel = 'telegram';
+            else if (href.includes('whatsapp')) channel = 'whatsapp';
+            else if (href.includes('instagram')) channel = 'instagram';
+            else if (href.includes('facebook')) channel = 'facebook';
+            window.gtag('event', 'outbound_click', {
+              channel,
+              link_url: href,
+              link_text: (link.textContent || '').trim().slice(0, 80),
+              page_path: location.pathname,
+              page_language: document.documentElement.lang,
+            });
+          });
+        </script>
+      )
+    }
+  </body>
+</html>
+
+<style is:global>
+  body { padding-bottom: 4.5rem; }
+
+  @media (min-width: 62em) {
+    body { padding-bottom: 0; }
+  }
+</style>
