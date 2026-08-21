@@ -116,23 +116,29 @@ type scale, and one shared image treatment that normalises photographs from very
 
 ## Motion
 
-Deliberately built on platform features rather than a library — there are **no JavaScript bundles**, only
-one ~1.8 kB inline script.
+Deliberately built on platform primitives rather than a library — **no JavaScript bundles**, only two
+small inline scripts.
 
 | Effect | How |
 |---|---|
-| Section/card entry reveals | `animation-timeline: view()` — scroll-driven, runs off the main thread |
-| Accent rules drawing in | same, `scaleX` on `.rule` |
+| Block reveals on scroll, staggered | IntersectionObserver adds `.is-in`; CSS transitions do the work |
+| Accent rules drawing in | `scaleX` on `.rule`, tied to its heading block arriving |
+| Images easing out of a slight zoom | `transform: scale(1.09)` released on reveal |
+| Hero entrance on load | CSS keyframes; the headline moves with `transform` only, never `opacity`, so LCP is not delayed |
 | Header lifting off the page | `animation-timeline: scroll(root)`, shadow only |
-| Page-to-page transitions | `@view-transition { navigation: auto }` — one at-rule, no JS |
+| Page-to-page transitions | `@view-transition { navigation: auto }` |
 | FAQ open/close | `::details-content` + `interpolate-size: allow-keywords` |
-| Hero image settling | plain CSS keyframe, `transform` only — never `opacity`, so LCP is not delayed |
-| Stat counters | the inline script (`[data-count-to]`, IntersectionObserver + rAF) |
-| Reveals on Firefox | the same script adds `.no-view-timeline`, switching reveals to an IntersectionObserver + transition path |
+| Stat counters | `[data-count-to]`, IntersectionObserver + rAF |
 
-Everything degrades to a static, fully visible page: the fallback class is only ever added *by* the
-script, so with JavaScript off nothing is left hidden. All of it sits inside
-`@media (prefers-reduced-motion: no-preference)`.
+`.motion` is added to `<html>` by a two-line script in `<head>` — before first paint, so nothing flashes —
+and only when the visitor has not asked for reduced motion and IntersectionObserver exists. **Every
+hidden-until-revealed rule is scoped to `.motion`**, so without JavaScript the class never appears and the
+page renders fully visible. It is never blank.
+
+Reveals were originally built on `animation-timeline: view()`. That version depended on
+`animation-duration` defaulting to `auto` and on per-engine range handling, and it did not fire
+consistently in practice — so it was replaced with one observer-driven path that behaves identically
+everywhere.
 
 The counters reserve their final width (`min-width: calc(var(--digits) * 1ch)` with tabular figures) so
 counting up cannot cause layout shift — measured CLS contribution is 0.

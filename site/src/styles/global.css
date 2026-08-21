@@ -295,46 +295,82 @@ ul, ol { margin: 0; padding: 0; }
    Motion — CSS-first, scroll-linked where supported, and always optional
    ========================================================================= */
 
-/* Scroll-linked entry. Where the browser has scroll-driven animations these run
-   off the main thread for free; `no-view-timeline` is set by the inline script
-   in Base.astro only for engines that lack them (Firefox today). */
+/* Scroll entry.
+
+   `.motion` is put on <html> by a two-line inline script in the document head —
+   before first paint, so nothing ever flashes — and only when the visitor has
+   not asked for reduced motion and IntersectionObserver exists. Without
+   JavaScript the class never appears and every element renders in its final,
+   visible state, so the page is never blank.
+
+   This is deliberately observer-driven rather than `animation-timeline: view()`:
+   the scroll-driven version depends on animation-duration defaulting to `auto`
+   and on per-engine range handling, and it did not fire consistently. One code
+   path that behaves identically everywhere is worth more here. */
+
+.reveal,
+.section-head { --reveal-shift: 2rem; }
+
 @media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .reveal {
-      animation: reveal-in linear both;
-      animation-timeline: view();
-      animation-range: entry 5% cover 22%;
-    }
-
-    .section-head .rule,
-    .pageHero .rule {
-      transform-origin: left center;
-      animation: rule-grow linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 26%;
-    }
-  }
-
-  html.no-view-timeline .reveal {
+  .motion .reveal,
+  .motion .section-head {
     opacity: 0;
-    transform: translateY(1.25rem);
-    transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.7, 0.25, 1);
+    transform: translateY(var(--reveal-shift));
+    transition:
+      opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: var(--reveal-delay, 0ms);
   }
 
-  html.no-view-timeline .reveal.is-in {
+  .motion .reveal.is-in,
+  .motion .section-head.is-in {
     opacity: 1;
     transform: none;
   }
+
+  /* The accent rule draws itself in once its heading block has arrived. */
+  .motion .section-head .rule,
+  .motion .pageHero__inner .rule {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s;
+  }
+
+  .motion .section-head.is-in .rule,
+  .motion .pageHero__inner.is-in .rule { transform: none; }
+
+  /* Photographs ease out of a slight zoom as their block arrives. */
+  .motion .reveal .figure img {
+    transform: scale(1.09);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms);
+  }
+
+  .motion .reveal.is-in .figure img { transform: none; }
+
+  /* Hero, on load. The headline moves with transform only and never fades,
+     so the largest contentful paint is not held back. */
+  .hero__titleTop,
+  .hero__titleBrand {
+    animation: hero-slide 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .hero__titleBrand { animation-delay: 0.09s; }
+
+  .hero .eyebrow { animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+  .hero__actions {
+    animation: hero-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+  }
 }
 
-@keyframes reveal-in {
-  from { opacity: 0; transform: translateY(1.25rem); }
+@keyframes hero-slide {
+  from { transform: translateY(1.6rem); }
+  to { transform: none; }
+}
+
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(1.4rem); }
   to { opacity: 1; transform: none; }
-}
-
-@keyframes rule-grow {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
 }
 
 /* Header lifts off the page as you leave the top. Driven by scroll position,

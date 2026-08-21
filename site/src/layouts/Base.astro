@@ -46,6 +46,19 @@ const t = useTranslations(locale);
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <Seo locale={locale} title={title} description={description} subpath={subpath} />
+    {/*
+      Runs before first paint so revealed blocks never flash in at their final
+      position. If this does not run — no JavaScript, reduced motion, an ancient
+      engine — `.motion` is absent and everything simply renders as-is.
+    */}
+    <script is:inline>
+      if (
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+        'IntersectionObserver' in window
+      ) {
+        document.documentElement.classList.add('motion');
+      }
+    </script>
     {schema && <script type="application/ld+json" is:inline set:html={schema} />}
   </head>
   <body>
@@ -58,30 +71,40 @@ const t = useTranslations(locale);
     <MobileCta locale={locale} telegram={telegram} whatsapp={whatsapp} />
 
     {/*
-      The only motion JavaScript on the site (~800 bytes, inline, no request).
-      Everything else is CSS. This covers the two things the platform cannot do
-      on its own: counting a number up, and reproducing scroll-driven reveals on
-      engines that have not shipped `animation-timeline` yet.
+      The only motion JavaScript on the site — inline, no network request.
+      Reveals blocks as they scroll in (with a stagger inside each group) and
+      counts the credibility numbers up. Everything else is CSS.
     */}
     <script is:inline>
       (() => {
-        if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        if (!('IntersectionObserver' in window)) return;
+        if (!document.documentElement.classList.contains('motion')) return;
 
-        if (!CSS.supports('animation-timeline: view()')) {
-          document.documentElement.classList.add('no-view-timeline');
-          const reveal = new IntersectionObserver(
-            (entries) => {
-              for (const entry of entries) {
-                if (!entry.isIntersecting) continue;
-                entry.target.classList.add('is-in');
-                reveal.unobserve(entry.target);
-              }
-            },
-            { rootMargin: '0px 0px -8%' },
-          );
-          for (const el of document.querySelectorAll('.reveal')) reveal.observe(el);
+        const targets = [...document.querySelectorAll('.reveal, .section-head')];
+
+        /* Stagger siblings so grids and lists arrive in sequence rather than
+           all at once. Capped so long lists do not crawl. */
+        const seen = new Map();
+        for (const el of targets) {
+          const parent = el.parentElement;
+          const index = seen.get(parent) ?? 0;
+          seen.set(parent, index + 1);
+          if (index) {
+            el.style.setProperty('--reveal-delay', `${Math.min(index, 8) * 75}ms`);
+          }
         }
+
+        const reveal = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('is-in');
+              reveal.unobserve(entry.target);
+            }
+          },
+          { rootMargin: '0px 0px -10%' },
+        );
+
+        for (const el of targets) reveal.observe(el);
 
         const numbers = document.querySelectorAll('[data-count-to]');
         if (!numbers.length) return;

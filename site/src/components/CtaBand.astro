@@ -15,14 +15,14 @@ const ctas = t.courses[0].ctas;
 
 <section class="cta section--dark">
   <div class="container cta__inner">
-    <div class="cta__text">
+    <div class="cta__text reveal">
       <p class="eyebrow">{t.brand.mark}</p>
       <p class="cta__lede">
         {t.history.contactLine} <span class="cta__hi">{t.history.contactCta}</span>
       </p>
       <a class="cta__phone" href={`tel:${PHONE}`}>{PHONE}</a>
     </div>
-    <div class="cta__actions">
+    <div class="cta__actions reveal">
       {
         ctas.map((cta, i) => (
           <a

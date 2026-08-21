@@ -41,10 +41,10 @@ const schema = graph([organization(lang), breadcrumbs(lang, trail)]);
 
   <section class="section">
     <div class="container method__intro">
-      <div class="prose method__prose">
+      <div class="prose method__prose reveal">
         {t.method.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
       </div>
-      <figure class="figure ratio-portrait method__figure">
+      <figure class="figure ratio-portrait method__figure reveal">
         <Picture
           src={img('academy-04')}
           formats={['avif', 'webp']}

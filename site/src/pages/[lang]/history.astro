@@ -52,7 +52,7 @@ const schema = graph([organization(lang), breadcrumbs(lang, trail)]);
         }
       </ol>
 
-      <div class="prose history__prose">
+      <div class="prose history__prose reveal">
         {t.history.paragraphs.map((paragraph) => <p set:html={paragraph} />)}
       </div>
     </div>
@@ -113,7 +113,7 @@ const schema = graph([organization(lang), breadcrumbs(lang, trail)]);
   </section>
 
   <section class="section section--tint">
-    <div class="container container--narrow contact">
+    <div class="container container--narrow contact reveal">
       <p class="contact__line">{t.history.contactLine}</p>
       <a class="contact__phone" href={`tel:${PHONE}`}>{PHONE}</a>
       <p>
